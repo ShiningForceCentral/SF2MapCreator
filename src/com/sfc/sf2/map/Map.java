@@ -17,6 +17,7 @@ public class Map {
     private MapBlock[] blocks;
     private MapLayout layout;
     private Tile[] tiles;
+    private Tile[][] tilesets;
     
     public MapBlock[] getBlocks() {
         return blocks;
@@ -40,6 +41,14 @@ public class Map {
 
     public void setTiles(Tile[] tiles) {
         this.tiles = tiles;
+    }
+
+    public Tile[][] getTilesets() {
+        return tilesets;
+    }
+
+    public void setTilesets(Tile[][] tilesets) {
+        this.tilesets = tilesets;
     }
     
     

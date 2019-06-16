@@ -6,6 +6,7 @@
 package com.sfc.sf2.map;
 
 import com.sfc.sf2.graphics.GraphicsManager;
+import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.io.DisassemblyManager;
@@ -13,6 +14,7 @@ import com.sfc.sf2.map.io.PngManager;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.map.layout.MapLayoutManager;
 import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
+import java.awt.Color;
 
 /**
  *
@@ -26,6 +28,18 @@ public class MapManager {
     public void importDisassembly(String imagePath, String hptilesPath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
         map = PngManager.importPngMap(imagePath,hptilesPath);
+        System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
+    }
+    
+    public void importBaseTilesets(String[] tilesetPaths){
+        System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
+        Tile[][] tilesets = new Tile[5][];
+        map.setTilesets(tilesets);
+        Color[] palette = map.getTiles()[0].getPalette();
+        com.sfc.sf2.graphics.io.DisassemblyManager gdm = new com.sfc.sf2.graphics.io.DisassemblyManager();
+        for(int i=0;i<tilesets.length;i++){
+            tilesets[i] = gdm.importDisassembly(tilesetPaths[i], palette, GraphicsManager.COMPRESSION_STACK);
+        }
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     
