@@ -15,9 +15,12 @@ import com.sfc.sf2.map.layout.MapLayout;
  */
 public class Map {
     private MapBlock[] blocks;
+    private MapBlock[] optimizedBlockset;
     private MapLayout layout;
     private Tile[] tiles;
     private Tile[][] tilesets;
+    private Tile[][] newTilesets;
+    private Tile[] orphanTiles;
     
     public MapBlock[] getBlocks() {
         return blocks;
@@ -49,6 +52,30 @@ public class Map {
 
     public void setTilesets(Tile[][] tilesets) {
         this.tilesets = tilesets;
+    }
+
+    public Tile[] getOrphanTiles() {
+        return orphanTiles;
+    }
+
+    public void setOrphanTiles(Tile[] orphanTiles) {
+        this.orphanTiles = orphanTiles;
+    }
+
+    public MapBlock[] getOptimizedBlockset() {
+        return optimizedBlockset;
+    }
+
+    public void setOptimizedBlockset(MapBlock[] optimizedBlockset) {
+        this.optimizedBlockset = optimizedBlockset;
+    }
+
+    public Tile[][] getNewTilesets() {
+        return newTilesets;
+    }
+
+    public void setNewTilesets(Tile[][] newTilesets) {
+        this.newTilesets = newTilesets;
     }
     
     
