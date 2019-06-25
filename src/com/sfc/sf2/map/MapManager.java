@@ -44,15 +44,15 @@ public class MapManager {
     private MapLayoutManager mapLayoutManager = new MapLayoutManager();
     private Map map;
     
-    public void importPng(String imagePath, String hptilesPath){
+    public void importPng(String imagePath, String flagsPath, String hptilesPath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
-        map = PngManager.importPngMap(imagePath,hptilesPath);
+        map = PngManager.importPngMap(imagePath,flagsPath,hptilesPath);
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     
-    public void importGif(String imagePath, String hptilesPath){
+    public void importGif(String imagePath, String flagsPath, String hptilesPath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
-        map = GifManager.importGifMap(imagePath,hptilesPath);
+        map = GifManager.importGifMap(imagePath,flagsPath,hptilesPath);
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     

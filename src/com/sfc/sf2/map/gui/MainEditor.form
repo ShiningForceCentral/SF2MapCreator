@@ -1201,7 +1201,7 @@
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="jTextField24">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cGITHUB\u005cSF2DISASM\u005cdisasm\u005cdata\u005cmaps\u005centries\u005cmap03\u005c" containsInvalidXMLChars="true"/>
+                                    <Property name="text" type="java.lang.String" value=".\u005centries\u005cmap03\u005c" containsInvalidXMLChars="true"/>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField24ActionPerformed"/>
@@ -1549,7 +1549,7 @@
                                         </Container>
                                         <Component class="javax.swing.JLabel" name="jLabel35">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="&lt;html&gt;Import generates basic 64*64 block array and 192*192 tile array with no optimization at this point.&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;Image requirements :&lt;br/&gt;- Dimensions : 1536px*1536px&lt;br/&gt;- 16-color indexed (4bpp)&lt;br/&gt;256-indexed tolerated if only first 16 colors are used.&lt;br/&gt;- Transparency color at index 0&lt;br/&gt;Breware :&lt;br/All used colors from the palette (transparency color included !) should have distinct values, to avoid color index ambiguity.&lt;br/&gt;&lt;br/&gt;Layout flags and HP Tiles files both optional.&lt;br/&gt;They can be generated from an existing map with SF2MapEditor.&lt;/html&gt;"/>
+                                            <Property name="text" type="java.lang.String" value="&lt;html&gt;Import step generates basic 64*64 block array and 192*192 tile array with no optimization at this point.&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;Image requirements :&lt;br/&gt;- Dimensions : 1536px*1536px&lt;br/&gt;- 16-color indexed (4bpp)&lt;br/&gt;256-indexed tolerated if only first 16 colors are used.&lt;br/&gt;- Transparency color at index 0&lt;br/&gt;Breware :&lt;br/All used colors from the palette (transparency color included !) should have distinct values, to avoid color index ambiguity.&lt;br/&gt;&lt;br/&gt;Layout flags and HP Tiles files both optional.&lt;br/&gt;They can be generated from an existing map with SF2MapEditor.&lt;/html&gt;"/>
                                           </Properties>
                                         </Component>
                                       </SubComponents>
@@ -1835,7 +1835,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField27">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset00.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset000.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField27ActionPerformed"/>
@@ -1864,7 +1864,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField28">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset03.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset035.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField28ActionPerformed"/>
@@ -1885,7 +1885,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField29">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset03.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset043.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField29ActionPerformed"/>
@@ -1906,7 +1906,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField30">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset03.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset053.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField30ActionPerformed"/>
@@ -1927,7 +1927,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField31">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset06.bin"/>
+                                                <Property name="text" type="java.lang.String" value=".../../../graphics/maps/maptilesets/maptileset066.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField31ActionPerformed"/>
@@ -2203,7 +2203,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField16">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset000-new.bin"/>
+                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset115.bin"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField16ActionPerformed"/>
@@ -2232,7 +2232,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField17">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset037-new.bin"/>
+                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset116.bin"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField17ActionPerformed"/>
@@ -2253,7 +2253,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField18">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset043-new.bin"/>
+                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset117.bin"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField18ActionPerformed"/>
@@ -2274,7 +2274,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField25">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset053-new.bin"/>
+                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset118.bin"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField25ActionPerformed"/>
@@ -2295,7 +2295,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField26">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset066-new.bin"/>
+                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset119.bin"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField26ActionPerformed"/>
@@ -2308,7 +2308,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField32">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/mappalettes/mappalette00-new.bin"/>
+                                            <Property name="text" type="java.lang.String" value="../../../graphics/maps/mappalettes/mappalette16.bin"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField32ActionPerformed"/>

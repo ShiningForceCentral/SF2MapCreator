@@ -891,7 +891,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText("C:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\maps\\entries\\map03\\");
+        jTextField24.setText(".\\entries\\map03\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1119,7 +1119,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addGap(0, 2, Short.MAX_VALUE))
             );
 
-            jLabel35.setText("<html>Import generates basic 64*64 block array and 192*192 tile array with no optimization at this point.<br/><br/><br/>Image requirements :<br/>- Dimensions : 1536px*1536px<br/>- 16-color indexed (4bpp)<br/>256-indexed tolerated if only first 16 colors are used.<br/>- Transparency color at index 0<br/>Breware :<br/All used colors from the palette (transparency color included !) should have distinct values, to avoid color index ambiguity.<br/><br/>Layout flags and HP Tiles files both optional.<br/>They can be generated from an existing map with SF2MapEditor.</html>");
+            jLabel35.setText("<html>Import step generates basic 64*64 block array and 192*192 tile array with no optimization at this point.<br/><br/><br/>Image requirements :<br/>- Dimensions : 1536px*1536px<br/>- 16-color indexed (4bpp)<br/>256-indexed tolerated if only first 16 colors are used.<br/>- Transparency color at index 0<br/>Breware :<br/All used colors from the palette (transparency color included !) should have distinct values, to avoid color index ambiguity.<br/><br/>Layout flags and HP Tiles files both optional.<br/>They can be generated from an existing map with SF2MapEditor.</html>");
 
             javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
             jPanel3.setLayout(jPanel3Layout);
@@ -1245,7 +1245,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel29.setText("Base Tileset 1 :");
 
-            jTextField27.setText("../../../graphics/maps/maptilesets/maptileset00.bin");
+            jTextField27.setText("../../../graphics/maps/maptilesets/maptileset000.bin");
             jTextField27.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField27ActionPerformed(evt);
@@ -1268,7 +1268,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel30.setText("Base Tileset 2 :");
 
-            jTextField28.setText("../../../graphics/maps/maptilesets/maptileset03.bin");
+            jTextField28.setText("../../../graphics/maps/maptilesets/maptileset035.bin");
             jTextField28.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField28ActionPerformed(evt);
@@ -1284,7 +1284,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel31.setText("Base Tileset 3 :");
 
-            jTextField29.setText("../../../graphics/maps/maptilesets/maptileset03.bin");
+            jTextField29.setText("../../../graphics/maps/maptilesets/maptileset043.bin");
             jTextField29.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField29ActionPerformed(evt);
@@ -1300,7 +1300,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel32.setText("Base Tileset 4 :");
 
-            jTextField30.setText("../../../graphics/maps/maptilesets/maptileset03.bin");
+            jTextField30.setText("../../../graphics/maps/maptilesets/maptileset053.bin");
             jTextField30.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField30ActionPerformed(evt);
@@ -1316,7 +1316,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel33.setText("Base Tileset 5 :");
 
-            jTextField31.setText("../../../graphics/maps/maptilesets/maptileset06.bin");
+            jTextField31.setText(".../../../graphics/maps/maptilesets/maptileset066.bin");
             jTextField31.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField31ActionPerformed(evt);
@@ -1496,7 +1496,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel17.setText("Tileset1 :");
 
-            jTextField16.setText("../../../graphics/maps/maptilesets/maptileset000-new.bin");
+            jTextField16.setText("../../../graphics/maps/maptilesets/maptileset115.bin");
             jTextField16.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField16ActionPerformed(evt);
@@ -1519,7 +1519,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel18.setText("Tileset2 :");
 
-            jTextField17.setText("../../../graphics/maps/maptilesets/maptileset037-new.bin");
+            jTextField17.setText("../../../graphics/maps/maptilesets/maptileset116.bin");
             jTextField17.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField17ActionPerformed(evt);
@@ -1535,7 +1535,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel19.setText("Tileset3 :");
 
-            jTextField18.setText("../../../graphics/maps/maptilesets/maptileset043-new.bin");
+            jTextField18.setText("../../../graphics/maps/maptilesets/maptileset117.bin");
             jTextField18.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField18ActionPerformed(evt);
@@ -1551,7 +1551,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel27.setText("Tileset4 :");
 
-            jTextField25.setText("../../../graphics/maps/maptilesets/maptileset053-new.bin");
+            jTextField25.setText("../../../graphics/maps/maptilesets/maptileset118.bin");
             jTextField25.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField25ActionPerformed(evt);
@@ -1567,7 +1567,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel28.setText("Tileset5 :");
 
-            jTextField26.setText("../../../graphics/maps/maptilesets/maptileset066-new.bin");
+            jTextField26.setText("../../../graphics/maps/maptilesets/maptileset119.bin");
             jTextField26.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField26ActionPerformed(evt);
@@ -1576,7 +1576,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel20.setText("Palette :");
 
-            jTextField32.setText("../../../graphics/maps/mappalettes/mappalette00-new.bin");
+            jTextField32.setText("../../../graphics/maps/mappalettes/mappalette16.bin");
             jTextField32.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField32ActionPerformed(evt);
@@ -1984,6 +1984,14 @@ public class MainEditor extends javax.swing.JFrame {
             imagePath = iPath;
         }        
         System.out.println(imagePath.toString());
+        Path fPath = Paths.get(jTextField33.getText());
+        Path flagsPath;
+        if(!fPath.isAbsolute()){
+           flagsPath = basePath.resolve(fPath).normalize();
+        }else{
+            flagsPath = fPath;
+        }        
+        System.out.println(flagsPath.toString());
         Path hPath = Paths.get(jTextField21.getText());
         Path hptilesPath;
         if(!hPath.isAbsolute()){
@@ -1993,7 +2001,7 @@ public class MainEditor extends javax.swing.JFrame {
         }        
         System.out.println(hptilesPath.toString());
 
-        mapManager.importPng(imagePath.toString(),hptilesPath.toString());
+        mapManager.importPng(imagePath.toString(),flagsPath.toString(),hptilesPath.toString());
         
         map = mapManager.getMap();
         
@@ -2584,6 +2592,14 @@ public class MainEditor extends javax.swing.JFrame {
         }else{
             imagePath = iPath;
         }        
+        Path fPath = Paths.get(jTextField33.getText());
+        Path flagsPath;
+        if(!fPath.isAbsolute()){
+           flagsPath = basePath.resolve(fPath).normalize();
+        }else{
+            flagsPath = fPath;
+        }        
+        System.out.println(flagsPath.toString());
         System.out.println(imagePath.toString());
         Path hPath = Paths.get(jTextField23.getText());
         Path hptilesPath;
@@ -2594,7 +2610,7 @@ public class MainEditor extends javax.swing.JFrame {
         }        
         System.out.println(hptilesPath.toString());
 
-        mapManager.importGif(imagePath.toString(),hptilesPath.toString());
+        mapManager.importGif(imagePath.toString(),flagsPath.toString(),hptilesPath.toString());
         
         map = mapManager.getMap();
         
@@ -2687,7 +2703,11 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField33ActionPerformed
 
     private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
-        // TODO add your handling code here:
+        int returnVal = jFileChooser1.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser1.getSelectedFile();
+            jTextField33.setText(file.getAbsolutePath());
+        }
     }//GEN-LAST:event_jButton40ActionPerformed
 
     private void jTextField34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField34ActionPerformed
@@ -2695,7 +2715,11 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField34ActionPerformed
 
     private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
-        // TODO add your handling code here:
+        int returnVal = jFileChooser1.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser1.getSelectedFile();
+            jTextField34.setText(file.getAbsolutePath());
+        }
     }//GEN-LAST:event_jButton41ActionPerformed
 
     /**

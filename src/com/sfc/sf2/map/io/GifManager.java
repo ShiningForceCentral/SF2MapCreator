@@ -41,7 +41,7 @@ public class GifManager {
     public static final int MAP_PIXEL_WIDTH = 64*3*8;
     public static final int MAP_PIXEL_HEIGHT = 64*3*8;
     
-    public static Map importGifMap(String filepath, String hptilesPath){
+    public static Map importGifMap(String filepath, String flagsPath, String hptilesPath){
         System.out.println("com.sfc.sf2.map.io.GifManager.importGif() - Importing GIF files ...");
         Map map = new Map();
         try{

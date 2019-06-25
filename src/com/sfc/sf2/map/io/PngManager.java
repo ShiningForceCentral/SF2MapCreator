@@ -41,7 +41,7 @@ public class PngManager {
     public static final int MAP_PIXEL_WIDTH = 64*3*8;
     public static final int MAP_PIXEL_HEIGHT = 64*3*8;
     
-    public static Map importPngMap(String filepath, String hptilesPath){
+    public static Map importPngMap(String filepath, String flagsPath, String hptilesPath){
         System.out.println("com.sfc.sf2.map.io.PngManager.importPng() - Importing PNG files ...");
         Map map = new Map();
         try{
@@ -55,6 +55,7 @@ public class PngManager {
                    map.setBlocks(blockset);       
                    MapLayout ml = new MapLayout();
                    ml.setBlocks(blockset);
+                   loadFlags(ml, flagsPath);
                    map.setLayout(ml);
                 }else{
                     System.out.println("Could not create map because of wrong length : tiles=" + tiles.length);
@@ -65,6 +66,30 @@ public class PngManager {
         }        
         System.out.println("com.sfc.sf2.map.io.PngManager.importPng() - PNG files imported.");
         return map;                
+    }
+    
+    public static void loadFlags(MapLayout layout, String flagsPath){
+            Path fpath = Paths.get(flagsPath);
+            if(fpath.toFile().exists() && !fpath.toFile().isDirectory()){
+                try {
+                    int blockIndex = 0;
+                    int cursor = 0;
+                    Scanner scan = new Scanner(fpath);
+                    while(scan.hasNext()){
+                        String line = scan.nextLine();
+                        while(cursor<line.length()-1){
+                            String flags = (cursor<line.length()-2)?line.substring(cursor, cursor+2):line.substring(cursor);
+                            int flagsValue = Integer.parseInt(flags, 16) << 8;
+                            layout.getBlocks()[blockIndex].setFlags(flagsValue);
+                            cursor+=2;
+                            blockIndex++;
+                        }
+                        cursor=0;
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
     }
     
     public static MapBlock[] loadMapBlocks(Tile[] tiles){
