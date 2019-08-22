@@ -17,7 +17,9 @@ import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.map.layout.MapLayoutManager;
 import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
 import com.sfc.sf2.palette.PaletteManager;
+import com.sfc.sf2.palette.graphics.PaletteDecoder;
 import java.awt.Color;
+import java.awt.image.IndexColorModel;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -44,9 +46,9 @@ public class MapManager {
     private MapLayoutManager mapLayoutManager = new MapLayoutManager();
     private Map map;
     
-    public void importPng(String imagePath, String flagsPath, String hptilesPath){
+    public void importPng(String imagePath, String flagsPath, String hptilesPath, String targetPaletteFilepath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
-        map = PngManager.importPngMap(imagePath,flagsPath,hptilesPath);
+        map = PngManager.importPngMap(imagePath,flagsPath,hptilesPath, targetPaletteFilepath);
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     
@@ -56,11 +58,23 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     
-    public void importBaseTilesets(String[] tilesetPaths){
+    public void importBaseTilesets(String[] tilesetPaths, boolean chestGraphics, String targetPaletteFilepath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
         Tile[][] tilesets = new Tile[5][];
         map.setTilesets(tilesets);
-        Color[] palette = map.getTiles()[0].getPalette();
+        Color[] palette = null;   
+        Path palettepath = Paths.get(targetPaletteFilepath);
+        if(palettepath.toFile().exists()){
+            try {
+                byte[] paletteData = Files.readAllBytes(palettepath);
+                palette = PaletteDecoder.parsePalette(paletteData);
+            } catch (IOException ex) {
+                Logger.getLogger(MapManager.class.getName()).log(Level.SEVERE, null, ex);
+                palette = map.getTiles()[0].getPalette();
+            }
+        }else{
+            palette = map.getTiles()[0].getPalette();
+        }        
         Tile emptyTile = createEmptyTile();
         emptyTile.setPalette(palette);
         for(int i=0;i<tilesets.length;i++){
@@ -69,7 +83,7 @@ public class MapManager {
             if(path.toFile().exists()&&!path.toFile().isDirectory()){
                 tilesets[i] = com.sfc.sf2.graphics.io.DisassemblyManager.importDisassembly(tpath, palette, GraphicsManager.COMPRESSION_STACK);
             }else{
-                if(i!=4){
+                if(i!=4||!chestGraphics){
                     Tile[] emptyTileset = new Tile[128];
                     tilesets[i] = emptyTileset;
                     for(int j=0;j<emptyTileset.length;j++){
@@ -136,7 +150,6 @@ public class MapManager {
                 }
             }
         }
-        System.out.println(new Date());
     }
     
     private MapBlock createVoidMapBlock(){
@@ -213,31 +226,31 @@ public class MapManager {
                          Tile testTile = block.getTiles()[t];
                          if(tilesets[i][j].equals(testTile)){
                              targetId = i*128+j;
-                             System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (no flips)");
+                             //System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (no flips)");
                              break;
                          }
                          testTile = Tile.vFlip(block.getTiles()[t]);
                          if(tilesets[i][j].equals(testTile)){
                              targetId = i*128+j;
-                             System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (V flip)");
+                             //System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (V flip)");
                              break;
                          }
                          testTile = Tile.hFlip(block.getTiles()[t]);
                          if(tilesets[i][j].equals(testTile)){
                              targetId = i*128+j;
-                             System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (H flip)");
+                             //System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (H flip)");
                              break;
                          }
                          testTile = Tile.vFlip(testTile);
                          if(tilesets[i][j].equals(testTile)){
                              targetId = i*128+j;
-                             System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (V+H flips)");
+                             //System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (V+H flips)");
                              break;
                          }
                      }
                  }
                  if(targetId<0){
-                     System.out.println("  BLOCKSET BLOCK "+b+" TILE "+t+" NOT FOUND IN AVAILABLE TILESETS");
+                     //System.out.println("  BLOCKSET BLOCK "+b+" TILE "+t+" NOT FOUND IN AVAILABLE TILESETS");
                  }
                 if(targetId<0){
                     orphanTileList.add(block.getTiles()[t]);

@@ -159,7 +159,7 @@
                                   <Layout>
                                     <DimensionLayout dim="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <EmptySpace min="0" pref="858" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="815" max="32767" attributes="0"/>
                                       </Group>
                                     </DimensionLayout>
                                     <DimensionLayout dim="1">
@@ -1162,15 +1162,26 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jTabbedPane1" pref="0" max="32767" attributes="0"/>
+                                              <Component id="jPanel12" alignment="0" max="32767" attributes="0"/>
                                               <Group type="102" attributes="0">
-                                                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jTextField24" pref="113" max="32767" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jButton31" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="jTextField24" pref="113" max="32767" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="jButton31" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="jTextField35" pref="0" max="32767" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="jButton42" min="-2" pref="61" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="jPanel12" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -1185,7 +1196,13 @@
                                               <Component id="jButton31" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTabbedPane1" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jTextField35" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jButton42" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel39" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jTabbedPane1" pref="610" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -1201,7 +1218,7 @@
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="jTextField24">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value=".\u005centries\u005cmap03\u005c" containsInvalidXMLChars="true"/>
+                                    <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cGITHUB\u005cSF2DISASM\u005cdisasm\u005cdata\u005cmaps\u005c.\u005centries\u005cmap79\u005c" containsInvalidXMLChars="true"/>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField24ActionPerformed"/>
@@ -1245,7 +1262,7 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jPanel29" max="32767" attributes="0"/>
                                               <Component id="jPanel31" max="32767" attributes="0"/>
-                                              <Group type="102" alignment="1" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jLabel35" pref="210" max="32767" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
@@ -1255,13 +1272,12 @@
                                         <DimensionLayout dim="1">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                                                   <Component id="jPanel31" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jPanel29" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jLabel35" pref="306" max="32767" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace pref="15" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -1549,7 +1565,7 @@
                                         </Container>
                                         <Component class="javax.swing.JLabel" name="jLabel35">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="&lt;html&gt;Import step generates basic 64*64 block array and 192*192 tile array with no optimization at this point.&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;Image requirements :&lt;br/&gt;- Dimensions : 1536px*1536px&lt;br/&gt;- 16-color indexed (4bpp)&lt;br/&gt;256-indexed tolerated if only first 16 colors are used.&lt;br/&gt;- Transparency color at index 0&lt;br/&gt;Breware :&lt;br/All used colors from the palette (transparency color included !) should have distinct values, to avoid color index ambiguity.&lt;br/&gt;&lt;br/&gt;Layout flags and HP Tiles files both optional.&lt;br/&gt;They can be generated from an existing map with SF2MapEditor.&lt;/html&gt;"/>
+                                            <Property name="text" type="java.lang.String" value="&lt;html&gt;Import step generates basic 64*64 block array and 192*192 tile array with no optimization at this point.&lt;br/&gt;&lt;br/&gt;Image requirements :&lt;br/&gt;- Dimensions : 1536px*1536px&lt;br/&gt;- 16-color indexed (4bpp)&lt;br/&gt;256-indexed tolerated if only first 16 colors are used.&lt;br/&gt;- Transparency color at index 0&lt;br/&gt;Breware :&lt;br/All used colors from the palette (transparency color included !) should have distinct values, to avoid color index ambiguity.&lt;br/&gt;&lt;br/&gt;Layout flags and HP Tiles files both optional.&lt;br/&gt;They can be generated from an existing map with SF2MapEditor.&lt;/html&gt;"/>
                                           </Properties>
                                         </Component>
                                       </SubComponents>
@@ -1581,7 +1597,7 @@
                                                   <Component id="jLabel7" min="-2" pref="95" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="378" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="349" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -1703,7 +1719,7 @@
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="jPanel22" min="-2" pref="377" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jPanel32" pref="223" max="32767" attributes="0"/>
+                                                  <Component id="jPanel32" pref="204" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -1758,10 +1774,13 @@
                                                               <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace max="-2" attributes="0"/>
                                                               <Component id="jTextField31" max="32767" attributes="0"/>
+                                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                                           </Group>
-                                                          <Component id="jLabel8" pref="0" max="32767" attributes="0"/>
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="32767" attributes="0"/>
+                                                          </Group>
                                                       </Group>
-                                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Component id="jButton38" alignment="1" min="-2" max="-2" attributes="0"/>
                                                           <Component id="jButton4" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -1803,23 +1822,17 @@
                                                           <Component id="jButton38" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       </Group>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel8" min="-2" pref="52" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jCheckBox3" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       </Group>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="jLabel13" max="32767" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel13" pref="180" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                             </DimensionLayout>
                                           </Layout>
                                           <SubComponents>
-                                            <Component class="javax.swing.JLabel" name="jLabel8">
-                                              <Properties>
-                                                <Property name="text" type="java.lang.String" value="&lt;html&gt;Load existing tilesets,&lt;br/&gt;or keep free tileset slots to fill with new tiles.&lt;/html&gt;"/>
-                                              </Properties>
-                                            </Component>
                                             <Component class="javax.swing.JButton" name="jButton4">
                                               <Properties>
                                                 <Property name="text" type="java.lang.String" value="Import"/>
@@ -1835,7 +1848,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField27">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset000.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset101.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField27ActionPerformed"/>
@@ -1864,7 +1877,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField28">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset035.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset102.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField28ActionPerformed"/>
@@ -1885,7 +1898,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField29">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset043.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset103.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField29ActionPerformed"/>
@@ -1906,7 +1919,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField30">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset053.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset104.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField30ActionPerformed"/>
@@ -1927,7 +1940,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField31">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value=".../../../graphics/maps/maptilesets/maptileset066.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset105.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField31ActionPerformed"/>
@@ -1935,7 +1948,13 @@
                                             </Component>
                                             <Component class="javax.swing.JLabel" name="jLabel13">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="&lt;html&gt;Managed constraints : &lt;br/&gt;- Empty tile at tileset 0 index 0&lt;br/&gt;- Open/closed chest tiles expected at fixed position in last tileset&lt;br/&gt;&lt;br/&gt;To manage manually :&lt;br/&gt;Map animation tiles have to be grouped in a pre-created tileset for the map animation data to point to it. (eg : for map 03, first 32 tiles of tileset 066).&lt;/html&gt;"/>
+                                                <Property name="text" type="java.lang.String" value="&lt;html&gt;Load existing tilesets, or keep free tileset slots to fill with new tiles.&lt;br/&gt;Managed constraints : &lt;br/&gt;- Empty tile at tileset 0 index 0&lt;br/&gt;- Open/closed chest tiles expected at fixed position in last tileset&lt;br/&gt;&lt;br/&gt;To manage manually :&lt;br/&gt;Map animation tiles have to be grouped in a pre-created tileset for the map animation data to point to it. (eg : for map 03, first 32 tiles of tileset 066).&lt;/html&gt;"/>
+                                              </Properties>
+                                            </Component>
+                                            <Component class="javax.swing.JCheckBox" name="jCheckBox3">
+                                              <Properties>
+                                                <Property name="selected" type="boolean" value="true"/>
+                                                <Property name="text" type="java.lang.String" value="Chest graphics"/>
                                               </Properties>
                                             </Component>
                                           </SubComponents>
@@ -1969,7 +1988,7 @@
                                                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="jLabel38" min="-2" pref="130" max="-2" attributes="0"/>
-                                                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                                                      <EmptySpace max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                             </DimensionLayout>
@@ -2135,7 +2154,7 @@
                                                   <Component id="jLabel1" min="-2" pref="23" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="291" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="262" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -2403,6 +2422,27 @@
                                     </Component>
                                   </SubComponents>
                                 </Container>
+                                <Component class="javax.swing.JButton" name="jButton42">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="File..."/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton42ActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel39">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Map Palette (opt.) :"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="jTextField35">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cGITHUB\u005cSF2DISASM\u005cdisasm\u005cdata\u005cmaps\u005c../graphics/maps/mappalettes/mappalette00.bin" containsInvalidXMLChars="true"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField35ActionPerformed"/>
+                                  </Events>
+                                </Component>
                               </SubComponents>
                             </Container>
                           </SubComponents>

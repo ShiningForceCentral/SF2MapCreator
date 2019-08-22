@@ -12,6 +12,8 @@ import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
+import com.sfc.sf2.palette.graphics.PaletteDecoder;
+import com.sfc.sf2.palette.graphics.PaletteEncoder;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -21,6 +23,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -41,11 +44,11 @@ public class PngManager {
     public static final int MAP_PIXEL_WIDTH = 64*3*8;
     public static final int MAP_PIXEL_HEIGHT = 64*3*8;
     
-    public static Map importPngMap(String filepath, String flagsPath, String hptilesPath){
+    public static Map importPngMap(String filepath, String flagsPath, String hptilesPath, String targetPaletteFilepath){
         System.out.println("com.sfc.sf2.map.io.PngManager.importPng() - Importing PNG files ...");
         Map map = new Map();
         try{
-            Tile[] tiles = loadPngFile(filepath, hptilesPath);
+            Tile[] tiles = loadPngFile(filepath, hptilesPath, targetPaletteFilepath);
             map.setTiles(tiles);
             if(tiles!=null){
                 if(tiles.length==9*64*64){  
@@ -118,7 +121,7 @@ public class PngManager {
     }
     
     
-    public static Tile[] loadPngFile(String filepath, String hptilespath) throws IOException{
+    public static Tile[] loadPngFile(String filepath, String hptilespath, String targetPaletteFilepath) throws IOException{
         Tile[] tiles = null;
         boolean cFound = false;
         try{
@@ -129,8 +132,15 @@ public class PngManager {
                 if(!(cm instanceof IndexColorModel)){
                     System.out.println("PNG FORMAT ERROR : COLORS ARE NOT INDEXED AS EXPECTED.");
                 }else{
+                    Color[] palette = null;   
+                    Path palettepath = Paths.get(targetPaletteFilepath);
                     IndexColorModel icm = (IndexColorModel) cm;
-                    Color[] palette = buildColors(icm);
+                    if(palettepath.toFile().exists()){
+                        byte[] paletteData = Files.readAllBytes(palettepath);
+                        palette = PaletteDecoder.parsePalette(paletteData);
+                    }else{
+                        palette = PaletteEncoder.producePalette(buildColors(icm));
+                    }
 
                     int imageWidth = img.getWidth();
                     int imageHeight = img.getHeight();
@@ -152,17 +162,34 @@ public class PngManager {
                                             for(int j=0;j<8;j++){
                                                 for(int i=0;i<8;i++){
                                                     Color color = new Color(img.getRGB(x+i,y+j));
+                                                    int b = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getBlue()]&0xE);;
+                                                    int g = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getGreen()]&0xE);;
+                                                    int r = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getRed()]&0xE);;
+                                                    Color standardizedColor = new Color(r,g,b);
                                                     cFound = false;
                                                     for(int c=0;c<16;c++){
-                                                        if(color.equals(palette[c])){
+                                                        if(standardizedColor.equals(palette[c])){
                                                             tile.setPixel(i, j, c);
                                                             cFound = true;
                                                             break;
                                                         }
                                                     }
                                                     if(!cFound){
-                                                        System.out.println("PNG FORMAT WARNING : UNRECOGNIZED COLOR AT "+i+":*"+j+" : "+color.toString());
-                                                        tile.setPixel(i, j, 0);
+                                                        //TODO find nearest color with lowest r*g*b diff
+                                                        int diff = Integer.MAX_VALUE;
+                                                        int index = 0;
+                                                        for(int c=0;c<16;c++){
+                                                            int bDiff = Math.abs(palette[c].getBlue()-color.getBlue())+1;
+                                                            int gDiff = Math.abs(palette[c].getGreen()-color.getGreen())+1;
+                                                            int rDiff = Math.abs(palette[c].getRed()-color.getRed())+1;
+                                                            int candidateDiff = bDiff * gDiff * rDiff;
+                                                            if(candidateDiff<=diff){
+                                                                diff = candidateDiff;
+                                                                index = c;
+                                                            }
+                                                        }
+                                                        
+                                                        tile.setPixel(i, j, index);
                                                     }
                                                 }
                                             }
