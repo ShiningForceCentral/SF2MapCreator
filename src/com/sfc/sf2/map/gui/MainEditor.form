@@ -2167,7 +2167,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField14">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="0-blocks-new.bin"/>
+                                            <Property name="text" type="java.lang.String" value="0-blocks.bin"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField14ActionPerformed"/>
@@ -2201,7 +2201,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField15">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="1-layout-new.bin"/>
+                                            <Property name="text" type="java.lang.String" value="1-layout.bin"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField15ActionPerformed"/>

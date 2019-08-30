@@ -12,15 +12,20 @@ import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
+import com.sfc.sf2.palette.graphics.PaletteDecoder;
+import com.sfc.sf2.palette.graphics.PaletteEncoder;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.IndexColorModel;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -41,11 +46,11 @@ public class GifManager {
     public static final int MAP_PIXEL_WIDTH = 64*3*8;
     public static final int MAP_PIXEL_HEIGHT = 64*3*8;
     
-    public static Map importGifMap(String filepath, String flagsPath, String hptilesPath){
+    public static Map importGifMap(String filepath, String flagsPath, String hptilesPath, String targetPaletteFilepath){
         System.out.println("com.sfc.sf2.map.io.GifManager.importGif() - Importing GIF files ...");
         Map map = new Map();
         try{
-            Tile[] tiles = loadGifFile(filepath, hptilesPath);
+            Tile[] tiles = loadGifFile(filepath, hptilesPath, targetPaletteFilepath);
             map.setTiles(tiles);
             if(tiles!=null){
                 if(tiles.length==9*64*64){  
@@ -93,7 +98,7 @@ public class GifManager {
     }
     
     
-    public static Tile[] loadGifFile(String filepath, String hptilespath) throws IOException{
+    public static Tile[] loadGifFile(String filepath, String hptilespath, String targetPaletteFilepath) throws IOException{
         Tile[] tiles = null;
         boolean cFound = false;
         try{
@@ -101,53 +106,100 @@ public class GifManager {
             if(path.toFile().exists()){
                 BufferedImage img = ImageIO.read(path.toFile());
                 ColorModel cm = img.getColorModel();
+                Color[] palette = null;   
+                Path palettepath = Paths.get(targetPaletteFilepath);
                 if(!(cm instanceof IndexColorModel)){
-                    System.out.println("GIF FORMAT ERROR : COLORS ARE NOT INDEXED AS EXPECTED.");
+                    if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
+                        System.out.println("GIF FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using external palette "+palettepath.toString());
+                        byte[] paletteData = Files.readAllBytes(palettepath);
+                        palette = PaletteDecoder.parsePalette(paletteData);
+                    }else{
+                    System.out.println("GIF FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using original game default map palette 0");
+                    try {
+                        InputStream is = GifManager.class.getResourceAsStream("basemappalette0.bin");
+                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                        int nRead;
+                        byte[] data = new byte[32];
+                        while ((nRead = is.read(data, 0, data.length)) != -1) {
+                          buffer.write(data, 0, nRead);
+                        }
+                        byte[] paletteData = buffer.toByteArray();
+                        palette = PaletteDecoder.parsePalette(paletteData);
+                    } catch (IOException ex) {
+                        Logger.getLogger(GifManager.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    }                    
+                }else if(palettepath.toFile().exists()){
+                    System.out.println("Using external palette "+palettepath.toString());
+                    byte[] paletteData = Files.readAllBytes(palettepath);
+                    palette = PaletteDecoder.parsePalette(paletteData);
                 }else{
+                    System.out.println("Using image's indexed palette");
                     IndexColorModel icm = (IndexColorModel) cm;
-                    Color[] palette = buildColors(icm);
+                    palette = PaletteDecoder.parsePalette(PaletteEncoder.producePalette(buildColors(icm)));
+                }
 
-                    int imageWidth = img.getWidth();
-                    int imageHeight = img.getHeight();
-                    if(imageWidth%8!=0 || imageHeight%8!=0){
-                        System.out.println("GIF FORMAT WARNING : DIMENSIONS ARE NOT MULTIPLES OF 8. (8 pixels per tile)");
-                    }else if(imageWidth!=MAP_PIXEL_WIDTH || imageHeight!=MAP_PIXEL_HEIGHT){
-                        System.out.println("GIF FORMAT WARNING : DIMENSIONS ARE NOT "+MAP_PIXEL_WIDTH+"px*"+MAP_PIXEL_HEIGHT+"px AS EXPECTED");
-                    }else {
-                        tiles = new Tile[(imageWidth/8)*(imageHeight/8)];
-                        int tileId = 0;
-                                    for(int tileLine=0;tileLine<64*3;tileLine++){
-                                        for(int tileColumn=0;tileColumn<64*3;tileColumn++){
-                                            int x = (tileColumn)*8;
-                                            int y = (tileLine)*8;
-                                            //System.out.println("Building tile from coordinates "+x+":"+y);
-                                            Tile tile = new Tile();
-                                            tile.setId(tileId);
-                                            tile.setPalette(palette);
-                                            for(int j=0;j<8;j++){
-                                                for(int i=0;i<8;i++){
-                                                    Color color = new Color(img.getRGB(x+i,y+j));
-                                                    cFound = false;
-                                                    for(int c=0;c<16;c++){
-                                                        if(color.equals(palette[c])){
-                                                            tile.setPixel(i, j, c);
-                                                            cFound = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(!cFound){
-                                                        System.out.println("GIF FORMAT WARNING : UNRECOGNIZED COLOR AT "+i+":*"+j+" : "+color.toString());
-                                                        tile.setPixel(i, j, 0);
-                                                    }
+                int imageWidth = img.getWidth();
+                int imageHeight = img.getHeight();
+                if(imageWidth%8!=0 || imageHeight%8!=0){
+                    System.out.println("GIF FORMAT WARNING : DIMENSIONS ARE NOT MULTIPLES OF 8. (8 pixels per tile)");
+                }else if(imageWidth!=MAP_PIXEL_WIDTH || imageHeight!=MAP_PIXEL_HEIGHT){
+                    System.out.println("GIF FORMAT WARNING : DIMENSIONS ARE NOT "+MAP_PIXEL_WIDTH+"px*"+MAP_PIXEL_HEIGHT+"px AS EXPECTED");
+                }else {
+                    tiles = new Tile[(imageWidth/8)*(imageHeight/8)];
+                    int tileId = 0;
+                    for(int tileLine=0;tileLine<64*3;tileLine++){
+                        for(int tileColumn=0;tileColumn<64*3;tileColumn++){
+                            int x = (tileColumn)*8;
+                            int y = (tileLine)*8;
+                            //System.out.println("Building tile from coordinates "+x+":"+y);
+                            Tile tile = new Tile();
+                            tile.setId(tileId);
+                            tile.setPalette(palette);
+                            for(int j=0;j<8;j++){
+                                for(int i=0;i<8;i++){
+                                    Color color = new Color(img.getRGB(x+i,y+j));
+                                    int a = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getAlpha()]&0xE);;
+                                    int b = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getBlue()]&0xE);;
+                                    int g = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getGreen()]&0xE);;
+                                    int r = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getRed()]&0xE);;
+                                    Color standardizedColor = new Color(r,g,b);
+                                    cFound = false;
+                                    for(int c=0;c<16;c++){
+                                        if(standardizedColor.equals(palette[c])){
+                                            tile.setPixel(i, j, c);
+                                            cFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!cFound){
+                                        //TODO find nearest color with lowest r*g*b diff
+                                        int diff = Integer.MAX_VALUE;
+                                        int index = 0;
+                                        if(a>=128){
+                                            index=0;
+                                        }else{
+                                            for(int c=0;c<16;c++){
+                                                int bDiff = Math.abs(palette[c].getBlue()-color.getBlue())+1;
+                                                int gDiff = Math.abs(palette[c].getGreen()-color.getGreen())+1;
+                                                int rDiff = Math.abs(palette[c].getRed()-color.getRed())+1;
+                                                int candidateDiff = bDiff * gDiff * rDiff;
+                                                if(candidateDiff<=diff){
+                                                    diff = candidateDiff;
+                                                    index = c;
                                                 }
                                             }
-                                            //System.out.println(tile);
-                                            tiles[tileId] = tile;   
-                                            tileId++;
                                         }
-                                    }        
 
-                    }
+                                        tile.setPixel(i, j, index);
+                                    }
+                                }
+                            }
+                            //System.out.println(tile);
+                            tiles[tileId] = tile;   
+                            tileId++;
+                        }
+                    }        
                 }                
             }
             Path hptpath = Paths.get(hptilespath);
@@ -170,10 +222,11 @@ public class GifManager {
             }
         }catch(Exception e){
              System.err.println("com.sfc.sf2.map.io.GifManager.importGif() - Error while parsing GIF data : "+e);
+             e.printStackTrace();
              throw e;
         }                
         return tiles;                
-    }
+    }    
     
     private static Color[] buildColors(IndexColorModel icm){
         Color[] colors = new Color[16];
@@ -226,9 +279,9 @@ public class GifManager {
     
     public static void exportHPTiles(Map map, String hpTilesPath){
         try {
-            System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - Exporting HP Tiles file ...");
+            System.out.println("com.sfc.sf2.map.io.GifManager.exportHPTiles() - Exporting HP Tiles file ...");
             writeMapHpTilesFile(map,hpTilesPath);    
-            System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - HP Tiles file exported.");
+            System.out.println("com.sfc.sf2.map.io.GifManager.exportHPTiles() - HP Tiles file exported.");
         } catch (Exception ex) {
             Logger.getLogger(GifManager.class.getName()).log(Level.SEVERE, null, ex);
         }

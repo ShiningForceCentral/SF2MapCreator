@@ -1459,7 +1459,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel16.setText("Blocks :");
 
-            jTextField14.setText("0-blocks-new.bin");
+            jTextField14.setText("0-blocks.bin");
             jTextField14.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField14ActionPerformed(evt);
@@ -1484,7 +1484,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel22.setText("Layout :");
 
-            jTextField15.setText("1-layout-new.bin");
+            jTextField15.setText("1-layout.bin");
             jTextField15.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField15ActionPerformed(evt);
@@ -2667,7 +2667,7 @@ public class MainEditor extends javax.swing.JFrame {
         }        
         System.out.println(targetPalettePath.toString());
 
-        mapManager.importGif(imagePath.toString(),flagsPath.toString(),hptilesPath.toString());
+        mapManager.importGif(imagePath.toString(),flagsPath.toString(),hptilesPath.toString(),targetPalettePath.toString());
         
         map = mapManager.getMap();
         

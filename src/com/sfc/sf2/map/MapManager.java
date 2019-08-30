@@ -52,9 +52,9 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     
-    public void importGif(String imagePath, String flagsPath, String hptilesPath){
+    public void importGif(String imagePath, String flagsPath, String hptilesPath, String targetPaletteFilepath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
-        map = GifManager.importGifMap(imagePath,flagsPath,hptilesPath);
+        map = GifManager.importGifMap(imagePath,flagsPath,hptilesPath,targetPaletteFilepath);
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     

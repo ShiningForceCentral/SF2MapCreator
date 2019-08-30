@@ -6,6 +6,7 @@
 package com.sfc.sf2.map.io;
 
 import com.sfc.sf2.graphics.Tile;
+import com.sfc.sf2.graphics.compressed.StackGraphicsDecoder;
 import com.sfc.sf2.graphics.layout.DefaultLayout;
 import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.block.MapBlock;
@@ -20,9 +21,11 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.IndexColorModel;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -129,77 +132,100 @@ public class PngManager {
             if(path.toFile().exists()){
                 BufferedImage img = ImageIO.read(path.toFile());
                 ColorModel cm = img.getColorModel();
+                Color[] palette = null;   
+                Path palettepath = Paths.get(targetPaletteFilepath);
                 if(!(cm instanceof IndexColorModel)){
-                    System.out.println("PNG FORMAT ERROR : COLORS ARE NOT INDEXED AS EXPECTED.");
-                }else{
-                    Color[] palette = null;   
-                    Path palettepath = Paths.get(targetPaletteFilepath);
-                    IndexColorModel icm = (IndexColorModel) cm;
-                    if(palettepath.toFile().exists()){
+                    if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
+                        System.out.println("PNG FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using external palette "+palettepath.toString());
                         byte[] paletteData = Files.readAllBytes(palettepath);
                         palette = PaletteDecoder.parsePalette(paletteData);
                     }else{
-                        palette = PaletteEncoder.producePalette(buildColors(icm));
+                    System.out.println("PNG FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using original game default map palette 0");
+                    try {
+                        InputStream is = PngManager.class.getResourceAsStream("basemappalette0.bin");
+                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                        int nRead;
+                        byte[] data = new byte[32];
+                        while ((nRead = is.read(data, 0, data.length)) != -1) {
+                          buffer.write(data, 0, nRead);
+                        }
+                        byte[] paletteData = buffer.toByteArray();
+                        palette = PaletteDecoder.parsePalette(paletteData);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    }                    
+                }else if(palettepath.toFile().exists()){
+                    System.out.println("Using external palette "+palettepath.toString());
+                    byte[] paletteData = Files.readAllBytes(palettepath);
+                    palette = PaletteDecoder.parsePalette(paletteData);
+                }else{
+                    System.out.println("Using image's indexed palette");
+                    IndexColorModel icm = (IndexColorModel) cm;
+                    palette = PaletteDecoder.parsePalette(PaletteEncoder.producePalette(buildColors(icm)));
+                }
 
-                    int imageWidth = img.getWidth();
-                    int imageHeight = img.getHeight();
-                    if(imageWidth%8!=0 || imageHeight%8!=0){
-                        System.out.println("PNG FORMAT WARNING : DIMENSIONS ARE NOT MULTIPLES OF 8. (8 pixels per tile)");
-                    }else if(imageWidth!=MAP_PIXEL_WIDTH || imageHeight!=MAP_PIXEL_HEIGHT){
-                        System.out.println("PNG FORMAT WARNING : DIMENSIONS ARE NOT "+MAP_PIXEL_WIDTH+"px*"+MAP_PIXEL_HEIGHT+"px AS EXPECTED");
-                    }else {
-                        tiles = new Tile[(imageWidth/8)*(imageHeight/8)];
-                        int tileId = 0;
-                                    for(int tileLine=0;tileLine<64*3;tileLine++){
-                                        for(int tileColumn=0;tileColumn<64*3;tileColumn++){
-                                            int x = (tileColumn)*8;
-                                            int y = (tileLine)*8;
-                                            //System.out.println("Building tile from coordinates "+x+":"+y);
-                                            Tile tile = new Tile();
-                                            tile.setId(tileId);
-                                            tile.setPalette(palette);
-                                            for(int j=0;j<8;j++){
-                                                for(int i=0;i<8;i++){
-                                                    Color color = new Color(img.getRGB(x+i,y+j));
-                                                    int b = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getBlue()]&0xE);;
-                                                    int g = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getGreen()]&0xE);;
-                                                    int r = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getRed()]&0xE);;
-                                                    Color standardizedColor = new Color(r,g,b);
-                                                    cFound = false;
-                                                    for(int c=0;c<16;c++){
-                                                        if(standardizedColor.equals(palette[c])){
-                                                            tile.setPixel(i, j, c);
-                                                            cFound = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(!cFound){
-                                                        //TODO find nearest color with lowest r*g*b diff
-                                                        int diff = Integer.MAX_VALUE;
-                                                        int index = 0;
-                                                        for(int c=0;c<16;c++){
-                                                            int bDiff = Math.abs(palette[c].getBlue()-color.getBlue())+1;
-                                                            int gDiff = Math.abs(palette[c].getGreen()-color.getGreen())+1;
-                                                            int rDiff = Math.abs(palette[c].getRed()-color.getRed())+1;
-                                                            int candidateDiff = bDiff * gDiff * rDiff;
-                                                            if(candidateDiff<=diff){
-                                                                diff = candidateDiff;
-                                                                index = c;
-                                                            }
-                                                        }
-                                                        
-                                                        tile.setPixel(i, j, index);
-                                                    }
+                int imageWidth = img.getWidth();
+                int imageHeight = img.getHeight();
+                if(imageWidth%8!=0 || imageHeight%8!=0){
+                    System.out.println("PNG FORMAT WARNING : DIMENSIONS ARE NOT MULTIPLES OF 8. (8 pixels per tile)");
+                }else if(imageWidth!=MAP_PIXEL_WIDTH || imageHeight!=MAP_PIXEL_HEIGHT){
+                    System.out.println("PNG FORMAT WARNING : DIMENSIONS ARE NOT "+MAP_PIXEL_WIDTH+"px*"+MAP_PIXEL_HEIGHT+"px AS EXPECTED");
+                }else {
+                    tiles = new Tile[(imageWidth/8)*(imageHeight/8)];
+                    int tileId = 0;
+                    for(int tileLine=0;tileLine<64*3;tileLine++){
+                        for(int tileColumn=0;tileColumn<64*3;tileColumn++){
+                            int x = (tileColumn)*8;
+                            int y = (tileLine)*8;
+                            //System.out.println("Building tile from coordinates "+x+":"+y);
+                            Tile tile = new Tile();
+                            tile.setId(tileId);
+                            tile.setPalette(palette);
+                            for(int j=0;j<8;j++){
+                                for(int i=0;i<8;i++){
+                                    Color color = new Color(img.getRGB(x+i,y+j));
+                                    int a = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getAlpha()]&0xE);;
+                                    int b = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getBlue()]&0xE);;
+                                    int g = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getGreen()]&0xE);;
+                                    int r = PaletteDecoder.VALUE_MAP.get(PaletteEncoder.VALUE_ARRAY[color.getRed()]&0xE);;
+                                    Color standardizedColor = new Color(r,g,b);
+                                    cFound = false;
+                                    for(int c=0;c<16;c++){
+                                        if(standardizedColor.equals(palette[c])){
+                                            tile.setPixel(i, j, c);
+                                            cFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!cFound){
+                                        //TODO find nearest color with lowest r*g*b diff
+                                        int diff = Integer.MAX_VALUE;
+                                        int index = 0;
+                                        if(a>=128){
+                                            index=0;
+                                        }else{
+                                            for(int c=0;c<16;c++){
+                                                int bDiff = Math.abs(palette[c].getBlue()-color.getBlue())+1;
+                                                int gDiff = Math.abs(palette[c].getGreen()-color.getGreen())+1;
+                                                int rDiff = Math.abs(palette[c].getRed()-color.getRed())+1;
+                                                int candidateDiff = bDiff * gDiff * rDiff;
+                                                if(candidateDiff<=diff){
+                                                    diff = candidateDiff;
+                                                    index = c;
                                                 }
                                             }
-                                            //System.out.println(tile);
-                                            tiles[tileId] = tile;   
-                                            tileId++;
                                         }
-                                    }        
 
-                    }
+                                        tile.setPixel(i, j, index);
+                                    }
+                                }
+                            }
+                            //System.out.println(tile);
+                            tiles[tileId] = tile;   
+                            tileId++;
+                        }
+                    }        
                 }                
             }
             Path hptpath = Paths.get(hptilespath);
@@ -222,6 +248,7 @@ public class PngManager {
             }
         }catch(Exception e){
              System.err.println("com.sfc.sf2.map.io.PngManager.importPng() - Error while parsing PNG data : "+e);
+             e.printStackTrace();
              throw e;
         }                
         return tiles;                
@@ -229,18 +256,32 @@ public class PngManager {
     
     private static Color[] buildColors(IndexColorModel icm){
         Color[] colors = new Color[16];
+        int transparentIndex = icm.getTransparentPixel();
         if(icm.getMapSize()>16){
-            System.out.println("com.sfc.sf2.map.io.PngManager.buildColors() - PNG FORMAT HAS MORE THAN 16 INDEXED COLORS : "+icm.getMapSize());
+            System.out.println("PNG FORMAT HAS MORE THAN 16 INDEXED COLORS : "+icm.getMapSize());
         }
+        byte[] alphas = new byte[icm.getMapSize()];
         byte[] reds = new byte[icm.getMapSize()];
         byte[] greens = new byte[icm.getMapSize()];
         byte[] blues = new byte[icm.getMapSize()];
+        icm.getAlphas(alphas);
         icm.getReds(reds);
         icm.getGreens(greens);
         icm.getBlues(blues);
         for(int i=0;i<16;i++){
             colors[i] = new Color((int)(reds[i]&0xff),(int)(greens[i]&0xff),(int)(blues[i]&0xff));
         }
+        if(transparentIndex==-1){
+            System.out.println("PNG FORMAT HAS NO TRANSPARENT COLOR. THIS WILL RESULT IN UNWANTED TRANSPARENCY WHENEVER USING COLOR INDEX 0.");
+        }
+        if(transparentIndex>0&&transparentIndex<16){
+            System.out.println("PNG FORMAT HAS TRANSPARENT COLOR AT INDEX "+transparentIndex+". SWAPPING POSITION WITH COLOR INDEX 0.");
+            Color transparentColor = colors[transparentIndex];
+            Color zero = colors[0];
+            colors[0] = transparentColor;
+            colors[transparentIndex] = zero;
+        }
+        
         return colors;
     }
     
