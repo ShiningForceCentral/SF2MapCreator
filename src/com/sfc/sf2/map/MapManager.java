@@ -64,7 +64,7 @@ public class MapManager {
         map.setTilesets(tilesets);
         Color[] palette = null;   
         Path palettepath = Paths.get(targetPaletteFilepath);
-        if(palettepath.toFile().exists()){
+        if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
             try {
                 byte[] paletteData = Files.readAllBytes(palettepath);
                 palette = PaletteDecoder.parsePalette(paletteData);

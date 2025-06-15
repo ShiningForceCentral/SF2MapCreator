@@ -155,7 +155,7 @@ public class PngManager {
                         Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     }                    
-                }else if(palettepath.toFile().exists()){
+                }else if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
                     System.out.println("Using external palette "+palettepath.toString());
                     byte[] paletteData = Files.readAllBytes(palettepath);
                     palette = PaletteDecoder.parsePalette(paletteData);

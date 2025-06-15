@@ -258,6 +258,7 @@ public class MainEditor extends javax.swing.JFrame {
         jButton42 = new javax.swing.JButton();
         jLabel39 = new javax.swing.JLabel();
         jTextField35 = new javax.swing.JTextField();
+        jCheckBox4 = new javax.swing.JCheckBox();
         jSplitPane3 = new javax.swing.JSplitPane();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -894,7 +895,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText("C:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\maps\\.\\entries\\map79\\");
+        jTextField24.setText(".\\entries\\map79\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1143,7 +1144,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(15, Short.MAX_VALUE))
+                    .addContainerGap(131, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Import", jPanel3);
@@ -1341,19 +1342,19 @@ public class MainEditor extends javax.swing.JFrame {
                 .addGroup(jPanel22Layout.createSequentialGroup()
                     .addComponent(jLabel30)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField28)
+                    .addComponent(jTextField28, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                     .addGap(10, 10, 10)
                     .addComponent(jButton35))
                 .addGroup(jPanel22Layout.createSequentialGroup()
                     .addComponent(jLabel31)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField29)
+                    .addComponent(jTextField29, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                     .addGap(10, 10, 10)
                     .addComponent(jButton36))
                 .addGroup(jPanel22Layout.createSequentialGroup()
                     .addComponent(jLabel32)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField30)
+                    .addComponent(jTextField30, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                     .addGap(10, 10, 10)
                     .addComponent(jButton37))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
@@ -1361,7 +1362,7 @@ public class MainEditor extends javax.swing.JFrame {
                         .addGroup(jPanel22Layout.createSequentialGroup()
                             .addComponent(jLabel33)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField31)
+                            .addComponent(jTextField31, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                             .addGap(6, 6, 6))
                         .addGroup(jPanel22Layout.createSequentialGroup()
                             .addComponent(jCheckBox3)
@@ -1403,7 +1404,7 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jButton4)
                         .addComponent(jCheckBox3))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
             );
 
             jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder("2. Generate optimized data"));
@@ -1449,7 +1450,7 @@ public class MainEditor extends javax.swing.JFrame {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
                     .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jPanel32, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                    .addComponent(jPanel32, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Generate", jPanel18);
@@ -1619,31 +1620,31 @@ public class MainEditor extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addComponent(jLabel17)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField16)
+                    .addComponent(jTextField16, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                     .addGap(10, 10, 10)
                     .addComponent(jButton22))
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addComponent(jLabel18)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField17)
+                    .addComponent(jTextField17, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                     .addGap(10, 10, 10)
                     .addComponent(jButton23))
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addComponent(jLabel19)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField18)
+                    .addComponent(jTextField18, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                     .addGap(10, 10, 10)
                     .addComponent(jButton24))
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addComponent(jLabel27)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField25)
+                    .addComponent(jTextField25, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                     .addGap(10, 10, 10)
                     .addComponent(jButton32))
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addComponent(jLabel28)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField26)
+                    .addComponent(jTextField26, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                     .addGap(10, 10, 10)
                     .addComponent(jButton33))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
@@ -1754,18 +1755,26 @@ public class MainEditor extends javax.swing.JFrame {
             );
 
             jButton42.setText("File...");
+            jButton42.setEnabled(false);
             jButton42.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton42ActionPerformed(evt);
                 }
             });
 
-            jLabel39.setText("Map Palette (opt.) :");
+            jLabel39.setText("Map Palette :");
 
             jTextField35.setText("C:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\maps\\../graphics/maps/mappalettes/mappalette00.bin");
+            jTextField35.setEnabled(false);
             jTextField35.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField35ActionPerformed(evt);
+                }
+            });
+
+            jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jCheckBox4ActionPerformed(evt);
                 }
             });
 
@@ -1787,6 +1796,8 @@ public class MainEditor extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jButton31))
                                 .addGroup(jPanel9Layout.createSequentialGroup()
+                                    .addComponent(jCheckBox4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel39)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
@@ -1806,7 +1817,8 @@ public class MainEditor extends javax.swing.JFrame {
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton42)
-                        .addComponent(jLabel39))
+                        .addComponent(jLabel39)
+                        .addComponent(jCheckBox4))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2041,8 +2053,10 @@ public class MainEditor extends javax.swing.JFrame {
             targetPalettePath = tpPath;
         }        
         System.out.println(targetPalettePath.toString());
+        boolean customPaletteChecked = jCheckBox4.isSelected();
+        String palettePathString = customPaletteChecked ? targetPalettePath.toString() : "";
 
-        mapManager.importPng(imagePath.toString(),flagsPath.toString(),hptilesPath.toString(),targetPalettePath.toString());
+        mapManager.importPng(imagePath.toString(),flagsPath.toString(),hptilesPath.toString(),palettePathString);
         
         map = mapManager.getMap();
         
@@ -2666,8 +2680,10 @@ public class MainEditor extends javax.swing.JFrame {
             targetPalettePath = tpPath;
         }        
         System.out.println(targetPalettePath.toString());
+        boolean customPaletteChecked = jCheckBox4.isSelected();
+        String palettePathString = customPaletteChecked ? targetPalettePath.toString() : "";
 
-        mapManager.importGif(imagePath.toString(),flagsPath.toString(),hptilesPath.toString(),targetPalettePath.toString());
+        mapManager.importGif(imagePath.toString(),flagsPath.toString(),hptilesPath.toString(),palettePathString);
         
         map = mapManager.getMap();
         
@@ -2791,6 +2807,12 @@ public class MainEditor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton42ActionPerformed
 
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+        boolean checked = jCheckBox4.isSelected();
+        jTextField35.setEnabled(checked);
+        jButton42.setEnabled(checked);
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2866,6 +2888,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
