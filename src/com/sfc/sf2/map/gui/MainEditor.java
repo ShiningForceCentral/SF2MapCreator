@@ -2370,6 +2370,8 @@ public class MainEditor extends javax.swing.JFrame {
             targetPalettePath = tpPath;
         }        
         System.out.println(targetPalettePath.toString());
+        boolean customPaletteChecked = jCheckBox4.isSelected();
+        String palettePathString = customPaletteChecked ? targetPalettePath.toString() : "";
         
         String[] tilesetPaths = new String[5];
         
@@ -2379,7 +2381,7 @@ public class MainEditor extends javax.swing.JFrame {
         tilesetPaths[3] = tileset4Path.toString();
         tilesetPaths[4] = tileset5Path.toString();
 
-        mapManager.importBaseTilesets(tilesetPaths, jCheckBox3.isSelected(), targetPalettePath.toString());
+        mapManager.importBaseTilesets(tilesetPaths, jCheckBox3.isSelected(), palettePathString);
         
         Tile[][] baseTilesets = map.getTilesets();
         
