@@ -2063,7 +2063,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel6.removeAll();       
         jPanel6.setLayout(new GridLayout(1,1));
         baseBlocksLayout = new MapBlockLayout();
-        baseBlocksLayout.setTilesPerRow(((int)jSpinner1.getModel().getValue())*3);
+        baseBlocksLayout.setBlocksPerRow(((int)jSpinner1.getModel().getValue()));
         baseBlocksLayout.setCurrentDisplaySize(jComboBox2.getSelectedIndex()+1);
         baseBlocksLayout.setBlocks(map.getBlocks());
         jPanel6.add(baseBlocksLayout);
@@ -2158,7 +2158,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
         if(baseBlocksLayout != null){
-            baseBlocksLayout.setTilesPerRow((int)jSpinner1.getModel().getValue()*3);
+            baseBlocksLayout.setBlocksPerRow((int)jSpinner1.getModel().getValue());
             jPanel6.revalidate();
             jPanel6.repaint();
         }
@@ -2543,7 +2543,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel45.removeAll();       
         jPanel45.setLayout(new GridLayout(1,1));
         optimizedBlocksLayout = new MapBlockLayout();
-        optimizedBlocksLayout.setTilesPerRow(((int)jSpinner4.getModel().getValue())*3);
+        optimizedBlocksLayout.setBlocksPerRow(((int)jSpinner4.getModel().getValue()));
         optimizedBlocksLayout.setCurrentDisplaySize(jComboBox5.getSelectedIndex()+1);
         optimizedBlocksLayout.setBlocks(map.getOptimizedBlockset());
         jPanel45.add(optimizedBlocksLayout);
@@ -2690,7 +2690,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel6.removeAll();       
         jPanel6.setLayout(new GridLayout(1,1));
         baseBlocksLayout = new MapBlockLayout();
-        baseBlocksLayout.setTilesPerRow(((int)jSpinner1.getModel().getValue())*3);
+        baseBlocksLayout.setBlocksPerRow(((int)jSpinner1.getModel().getValue()));
         baseBlocksLayout.setCurrentDisplaySize(jComboBox2.getSelectedIndex()+1);
         baseBlocksLayout.setBlocks(map.getBlocks());
         jPanel6.add(baseBlocksLayout);
