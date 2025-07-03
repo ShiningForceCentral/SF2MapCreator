@@ -91,7 +91,7 @@ public class MapManager {
                     }
                 }else{
                     try {
-                        InputStream is = MapManager.class.getResourceAsStream("basemaptileset5.bin");
+                        InputStream is = ClassLoader.class.getResourceAsStream("basemaptileset5.bin");
                         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
                         int nRead;
                         byte[] data = new byte[424];
@@ -226,31 +226,31 @@ public class MapManager {
                          Tile testTile = block.getTiles()[t];
                          if(tilesets[i][j].equals(testTile)){
                              targetId = i*128+j;
-                             //System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (no flips)");
+                             System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (no flips)");
                              break;
                          }
                          testTile = Tile.vFlip(block.getTiles()[t]);
                          if(tilesets[i][j].equals(testTile)){
                              targetId = i*128+j;
-                             //System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (V flip)");
+                             System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (V flip)");
                              break;
                          }
                          testTile = Tile.hFlip(block.getTiles()[t]);
                          if(tilesets[i][j].equals(testTile)){
                              targetId = i*128+j;
-                             //System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (H flip)");
+                             System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (H flip)");
                              break;
                          }
                          testTile = Tile.vFlip(testTile);
                          if(tilesets[i][j].equals(testTile)){
                              targetId = i*128+j;
-                             //System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (V+H flips)");
+                             System.out.println("Found blockset block "+b+" tile "+t+" in tileset "+i+" : "+j+" (V+H flips)");
                              break;
                          }
                      }
                  }
                  if(targetId<0){
-                     //System.out.println("  BLOCKSET BLOCK "+b+" TILE "+t+" NOT FOUND IN AVAILABLE TILESETS");
+                     System.out.println("  BLOCKSET BLOCK "+b+" TILE "+t+" NOT FOUND IN AVAILABLE TILESETS");
                  }
                 if(targetId<0){
                     orphanTileList.add(block.getTiles()[t]);

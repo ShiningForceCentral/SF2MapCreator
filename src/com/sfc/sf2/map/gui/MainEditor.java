@@ -895,7 +895,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel26.setText("Base dir :");
 
-        jTextField24.setText(".\\entries\\map79\\");
+        jTextField24.setText("C:\\SEGADEV\\GITHUB\\ShiningForceCentral\\SF2DISASM\\disasm\\data\\maps\\entries\\map79\\");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1246,7 +1246,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel29.setText("Base Tileset 1 :");
 
-            jTextField27.setText("../../../graphics/maps/maptilesets/maptileset101.bin");
+            jTextField27.setText("../../../graphics/maps/maptilesets/maptileset017.bin");
             jTextField27.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField27ActionPerformed(evt);
@@ -1269,7 +1269,6 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel30.setText("Base Tileset 2 :");
 
-            jTextField28.setText("../../../graphics/maps/maptilesets/maptileset102.bin");
             jTextField28.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField28ActionPerformed(evt);
@@ -1285,7 +1284,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel31.setText("Base Tileset 3 :");
 
-            jTextField29.setText("../../../graphics/maps/maptilesets/maptileset103.bin");
+            jTextField29.setText("../../../graphics/maps/maptilesets/maptileset034.bin");
             jTextField29.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField29ActionPerformed(evt);
@@ -1301,7 +1300,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel32.setText("Base Tileset 4 :");
 
-            jTextField30.setText("../../../graphics/maps/maptilesets/maptileset104.bin");
+            jTextField30.setText("../../../graphics/maps/maptilesets/maptileset035.bin");
             jTextField30.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField30ActionPerformed(evt);
@@ -1317,7 +1316,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel33.setText("Base Tileset 5 :");
 
-            jTextField31.setText("../../../graphics/maps/maptilesets/maptileset105.bin");
+            jTextField31.setText("../../../graphics/maps/maptilesets/maptileset036.bin");
             jTextField31.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField31ActionPerformed(evt);

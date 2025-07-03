@@ -116,6 +116,7 @@ public class PngManager {
                 mbTiles[7] = tiles[(y*3+2)*3*64+(x*3+1)];
                 mbTiles[8] = tiles[(y*3+2)*3*64+(x*3+2)];
                 mb.setTiles(mbTiles);
+                mb.setIcm(tiles[0].getIcm());
                 blocks[y*64+x] = mb;
             }
         }

@@ -1221,7 +1221,7 @@
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="jTextField24">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value=".\u005centries\u005cmap79\u005c" containsInvalidXMLChars="true"/>
+                                    <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cGITHUB\u005cShiningForceCentral\u005cSF2DISASM\u005cdisasm\u005cdata\u005cmaps\u005centries\u005cmap79\u005c" containsInvalidXMLChars="true"/>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField24ActionPerformed"/>
@@ -1851,7 +1851,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField27">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset101.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset017.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField27ActionPerformed"/>
@@ -1879,9 +1879,6 @@
                                               </Properties>
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField28">
-                                              <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset102.bin"/>
-                                              </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField28ActionPerformed"/>
                                               </Events>
@@ -1901,7 +1898,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField29">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset103.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset034.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField29ActionPerformed"/>
@@ -1922,7 +1919,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField30">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset104.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset035.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField30ActionPerformed"/>
@@ -1943,7 +1940,7 @@
                                             </Component>
                                             <Component class="javax.swing.JTextField" name="jTextField31">
                                               <Properties>
-                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset105.bin"/>
+                                                <Property name="text" type="java.lang.String" value="../../../graphics/maps/maptilesets/maptileset036.bin"/>
                                               </Properties>
                                               <Events>
                                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField31ActionPerformed"/>
