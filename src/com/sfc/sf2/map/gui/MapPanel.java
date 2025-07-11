@@ -5,10 +5,9 @@
  */
 package com.sfc.sf2.map.gui;
 
+import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.block.MapBlock;
-import com.sfc.sf2.map.block.gui.BlockSlotPanel;
-import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.layout.MapLayout;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -18,11 +17,8 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -52,10 +48,12 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
     private int renderCounter = 0;
     private boolean drawGrid = false;
     private boolean drawLPTiles = false;
+    private boolean drawOrphanedTiles = false;
     
     private BufferedImage blocksImage;
     private BufferedImage gridImage;
     private BufferedImage lpTilesImage;
+    private BufferedImage orphanedTilesImage;
 
     public MapPanel() {
         addMouseListener(this);
@@ -89,6 +87,9 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
             graphics.drawImage(getBlocksImage(), 0, 0, null);
             if(drawLPTiles){
                 graphics.drawImage(getLPTilesImage(), 0, 0, null);
+            }
+            if (drawOrphanedTiles){
+                graphics.drawImage(getOrphanedTilesImage(), 0, 0, null);
             }
             if(drawGrid){
                 graphics.drawImage(getGridImage(), 0, 0, null);
@@ -153,6 +154,28 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
             }
         }
         return lpTilesImage;
+    }
+    
+    private BufferedImage getOrphanedTilesImage() {
+        if (orphanedTilesImage == null && map.getOrphanTiles() != null) {
+            orphanedTilesImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            Tile[] orphanedTiles = map.getOrphanTiles();
+            Graphics2D g2 = (Graphics2D) orphanedTilesImage.getGraphics(); 
+            g2.setColor(new Color(1f, 1f, 0f, 1f));
+            g2.setStroke(new BasicStroke(4));
+            for (int y = 0; y < 64*3; y++) {
+                for (int x = 0; x < 64*3; x++) {
+                    int blockIndex = (y/3)*64+(x/3);
+                    Tile tile = this.map.getLayout().getBlocks()[blockIndex].getTiles()[(y%3)*3+x%3];
+                    for (int orphan = 0; orphan < orphanedTiles.length; orphan++) {
+                        if (tile.equals(orphanedTiles[orphan])) {
+                            g2.drawRect(x*8-2, y*8-2, 12, 12);
+                        }
+                    }
+                }
+            }
+        }
+        return orphanedTilesImage;
     }
     
     private IndexColorModel buildIndexColorModel(Color[] colors){
@@ -262,15 +285,20 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
         }else{
             this.currentMode = MODE_VIEW;
         }
-        this.gridImage = null;
+        this.lpTilesImage = null;
         this.redraw = true;
     }
 
-    
-    
-    
-    
-    
+    public boolean isDrawOrphanedTiles() {
+        return drawOrphanedTiles;
+    }
+
+    public void setDrawOrphanedTiles(boolean drawOrphanedTiles) {
+        this.drawOrphanedTiles = drawOrphanedTiles;
+        this.orphanedTilesImage = null;
+        this.redraw = true;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
     }
