@@ -160,16 +160,17 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
         if (orphanedTilesImage == null && map.getOrphanTiles() != null) {
             orphanedTilesImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
             Tile[] orphanedTiles = map.getOrphanTiles();
-            Graphics2D g2 = (Graphics2D) orphanedTilesImage.getGraphics(); 
-            g2.setColor(new Color(1f, 1f, 0f, 1f));
-            g2.setStroke(new BasicStroke(4));
+            Graphics graphics = orphanedTilesImage.getGraphics(); 
             for (int y = 0; y < 64*3; y++) {
                 for (int x = 0; x < 64*3; x++) {
                     int blockIndex = (y/3)*64+(x/3);
                     Tile tile = this.map.getLayout().getBlocks()[blockIndex].getTiles()[(y%3)*3+x%3];
                     for (int orphan = 0; orphan < orphanedTiles.length; orphan++) {
                         if (tile.equals(orphanedTiles[orphan])) {
-                            g2.drawRect(x*8-2, y*8-2, 12, 12);
+                            graphics.setColor(new Color(1f, 1f, 0f, 0.5f));
+                            graphics.fillRect(x*8, y*8, 8, 8);
+                            graphics.setColor(new Color(0f, 0f, 0f, 1f));
+                            graphics.drawRect(x*8, y*8, 8, 8);
                         }
                     }
                 }
@@ -177,25 +178,6 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
         }
         return orphanedTilesImage;
     }
-    
-    private IndexColorModel buildIndexColorModel(Color[] colors){
-        byte[] reds = new byte[16];
-        byte[] greens = new byte[16];
-        byte[] blues = new byte[16];
-        byte[] alphas = new byte[16];
-        reds[0] = (byte)0xFF;
-        greens[0] = (byte)0xFF;
-        blues[0] = (byte)0xFF;
-        alphas[0] = 0;
-        for(int i=1;i<16;i++){
-            reds[i] = (byte)colors[i].getRed();
-            greens[i] = (byte)colors[i].getGreen();
-            blues[i] = (byte)colors[i].getBlue();
-            alphas[i] = (byte)0xFF;
-        }
-        IndexColorModel icm = new IndexColorModel(4,16,reds,greens,blues,alphas);
-        return icm;
-    }    
     
     public void resize(int size){
         this.currentDisplaySize = size;
