@@ -6,17 +6,13 @@
 package com.sfc.sf2.map.io;
 
 import com.sfc.sf2.graphics.Tile;
-import com.sfc.sf2.graphics.compressed.StackGraphicsDecoder;
-import com.sfc.sf2.graphics.layout.DefaultLayout;
 import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.layout.MapLayout;
-import com.sfc.sf2.map.layout.layout.MapLayoutLayout;
 import com.sfc.sf2.palette.graphics.PaletteDecoder;
 import com.sfc.sf2.palette.graphics.PaletteEncoder;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.IndexColorModel;
@@ -29,10 +25,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,16 +35,16 @@ import javax.imageio.ImageIO;
  *
  * @author wiz
  */
-public class PngManager {
+public class RawImageManager {
     
     public static final int MAP_PIXEL_WIDTH = 64*3*8;
     public static final int MAP_PIXEL_HEIGHT = 64*3*8;
     
-    public static Map importPngMap(String filepath, String flagsPath, String hptilesPath, String targetPaletteFilepath){
-        System.out.println("com.sfc.sf2.map.io.PngManager.importPng() - Importing PNG files ...");
+    public static Map importMapFromRawImage(String filepath, String flagsPath, String hptilesPath, String targetPaletteFilepath){
+        System.out.println("com.sfc.sf2.map.io.RawImageManager.importImage() - Importing Image files ...");
         Map map = new Map();
         try{
-            Tile[] tiles = loadPngFile(filepath, hptilesPath, targetPaletteFilepath);
+            Tile[] tiles = loadImageFile(filepath, hptilesPath, targetPaletteFilepath);
             map.setTiles(tiles);
             if(tiles!=null){
                 if(tiles.length==9*64*64){  
@@ -68,9 +61,9 @@ public class PngManager {
                 }
             }
         }catch(Exception e){
-             System.err.println("com.sfc.sf2.map.io.PngManager.importPng() - Error while parsing graphics data : "+e);
+             System.err.println("com.sfc.sf2.map.io.RawImageManager.importImage() - Error while parsing graphics data : "+e);
         }        
-        System.out.println("com.sfc.sf2.map.io.PngManager.importPng() - PNG files imported.");
+        System.out.println("com.sfc.sf2.map.io.RawImageManager.importImage() - Image files imported.");
         return map;                
     }
     
@@ -93,7 +86,7 @@ public class PngManager {
                         cursor=0;
                     }
                 } catch (IOException ex) {
-                    Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
     }
@@ -124,8 +117,7 @@ public class PngManager {
         return blocks;
     }
     
-    
-    public static Tile[] loadPngFile(String filepath, String hptilespath, String targetPaletteFilepath) throws IOException{
+    public static Tile[] loadImageFile(String filepath, String hptilespath, String targetPaletteFilepath) throws IOException{
         Tile[] tiles = null;
         boolean cFound = false;
         try{
@@ -137,13 +129,13 @@ public class PngManager {
                 Path palettepath = Paths.get(targetPaletteFilepath);
                 if(!(cm instanceof IndexColorModel)){
                     if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
-                        System.out.println("PNG FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using external palette "+palettepath.toString());
+                        System.out.println("Image FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using external palette "+palettepath.toString());
                         byte[] paletteData = Files.readAllBytes(palettepath);
                         palette = PaletteDecoder.parsePalette(paletteData);
                     }else{
-                    System.out.println("PNG FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using original game default map palette 0");
+                    System.out.println("Image FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using original game default map palette 0");
                     try {
-                        InputStream is = PngManager.class.getResourceAsStream("basemappalette0.bin");
+                        InputStream is = RawImageManager.class.getResourceAsStream("basemappalette0.bin");
                         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
                         int nRead;
                         byte[] data = new byte[32];
@@ -153,7 +145,7 @@ public class PngManager {
                         byte[] paletteData = buffer.toByteArray();
                         palette = PaletteDecoder.parsePalette(paletteData);
                     } catch (IOException ex) {
-                        Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     }                    
                 }else if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
@@ -169,9 +161,9 @@ public class PngManager {
                 int imageWidth = img.getWidth();
                 int imageHeight = img.getHeight();
                 if(imageWidth%8!=0 || imageHeight%8!=0){
-                    System.out.println("PNG FORMAT WARNING : DIMENSIONS ARE NOT MULTIPLES OF 8. (8 pixels per tile)");
+                    System.out.println("Image FORMAT WARNING : DIMENSIONS ARE NOT MULTIPLES OF 8. (8 pixels per tile)");
                 }else if(imageWidth!=MAP_PIXEL_WIDTH || imageHeight!=MAP_PIXEL_HEIGHT){
-                    System.out.println("PNG FORMAT WARNING : DIMENSIONS ARE NOT "+MAP_PIXEL_WIDTH+"px*"+MAP_PIXEL_HEIGHT+"px AS EXPECTED");
+                    System.out.println("Image FORMAT WARNING : DIMENSIONS ARE NOT "+MAP_PIXEL_WIDTH+"px*"+MAP_PIXEL_HEIGHT+"px AS EXPECTED");
                 }else {
                     tiles = new Tile[(imageWidth/8)*(imageHeight/8)];
                     int tileId = 0;
@@ -248,7 +240,7 @@ public class PngManager {
                 }
             }
         }catch(Exception e){
-             System.err.println("com.sfc.sf2.map.io.PngManager.importPng() - Error while parsing PNG data : "+e);
+             System.err.println("com.sfc.sf2.map.io.RawImageManager.importImage() - Error while parsing Image data : "+e);
              e.printStackTrace();
              throw e;
         }                
@@ -259,7 +251,7 @@ public class PngManager {
         Color[] colors = new Color[16];
         int transparentIndex = icm.getTransparentPixel();
         if(icm.getMapSize()>16){
-            System.out.println("PNG FORMAT HAS MORE THAN 16 INDEXED COLORS : "+icm.getMapSize());
+            System.out.println("Image FORMAT HAS MORE THAN 16 INDEXED COLORS : "+icm.getMapSize());
         }
         byte[] alphas = new byte[icm.getMapSize()];
         byte[] reds = new byte[icm.getMapSize()];
@@ -273,10 +265,10 @@ public class PngManager {
             colors[i] = new Color((int)(reds[i]&0xff),(int)(greens[i]&0xff),(int)(blues[i]&0xff));
         }
         if(transparentIndex==-1){
-            System.out.println("PNG FORMAT HAS NO TRANSPARENT COLOR. THIS WILL RESULT IN UNWANTED TRANSPARENCY WHENEVER USING COLOR INDEX 0.");
+            System.out.println("Image FORMAT HAS NO TRANSPARENT COLOR. THIS WILL RESULT IN UNWANTED TRANSPARENCY WHENEVER USING COLOR INDEX 0.");
         }
         if(transparentIndex>0&&transparentIndex<16){
-            System.out.println("PNG FORMAT HAS TRANSPARENT COLOR AT INDEX "+transparentIndex+". SWAPPING POSITION WITH COLOR INDEX 0.");
+            System.out.println("Image FORMAT HAS TRANSPARENT COLOR AT INDEX "+transparentIndex+". SWAPPING POSITION WITH COLOR INDEX 0.");
             Color transparentColor = colors[transparentIndex];
             Color zero = colors[0];
             colors[0] = transparentColor;
@@ -294,41 +286,37 @@ public class PngManager {
     
     
     
-    public static void exportPng(MapPanel mapPanel, String filepath){
+    public static void exportRawImage(MapPanel mapPanel, String filepath, int fileFormat){
         try {
-            System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - Exporting PNG files ...");
-            writePngFile(mapPanel,filepath);    
-            System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - PNG files exported.");
+            System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Exporting Image files ...");
+            writeImageFile(mapPanel,filepath, fileFormat);    
+            System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Image files exported.");
         } catch (Exception ex) {
-            Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-                
     }    
     
-    public static void writePngFile(MapPanel mapPanel, String filepath){
+    public static void writeImageFile(MapPanel mapPanel, String filepath, int fileFormat){
         try {
             BufferedImage image = mapPanel.buildImage();
             File outputfile = new File(filepath);
-            ImageIO.write(image, "png", outputfile);
-            System.out.println("PNG file exported : " + outputfile.getAbsolutePath());
+            ImageIO.write(image, com.sfc.sf2.graphics.io.RawImageManager.GetFileExtensionString(fileFormat), outputfile);
+            System.out.println("Image file exported : " + outputfile.getAbsolutePath());
         } catch (Exception ex) {
-            Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
         }       
     }
        
     
     public static void exportHPTiles(Map map, String hpTilesPath){
         try {
-            System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - Exporting HP Tiles file ...");
+            System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Exporting HP Tiles file ...");
             writeMapHpTilesFile(map,hpTilesPath);    
-            System.out.println("com.sfc.sf2.map.io.PngManager.exportPng() - HP Tiles file exported.");
+            System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - HP Tiles file exported.");
         } catch (Exception ex) {
-            Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-                
-    }    
+    }
     
     public static void writeMapHpTilesFile(Map map, String filepath){
         try {
@@ -349,8 +337,7 @@ public class PngManager {
             bw.close();
             System.out.println("HP Tiles file exported : " + outputfile.getAbsolutePath());
         } catch (Exception ex) {
-            Logger.getLogger(PngManager.class.getName()).log(Level.SEVERE, null, ex);
-        }       
-    }        
-    
+            Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
