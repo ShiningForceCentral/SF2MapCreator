@@ -9,7 +9,6 @@ import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.layout.MapLayout;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,7 +17,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.IndexColorModel;
 import javax.swing.JPanel;
 
 /**
@@ -69,13 +67,13 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
     
     public BufferedImage buildImage(){
         if(redraw){
-            currentImage = buildImage(this.map,this.tilesPerRow, false);
+            currentImage = buildImage(this.map,this.tilesPerRow);
             setSize(currentImage.getWidth(), currentImage.getHeight());
         }
         return currentImage;
     }
     
-    public BufferedImage buildImage(Map map, int tilesPerRow, boolean pngExport){
+    public BufferedImage buildImage(Map map, int tilesPerRow){
         renderCounter++;
         System.out.println("Map render "+renderCounter);
         this.map = map;
@@ -122,9 +120,7 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
     }
     private BufferedImage getBlocksImage(){
         if(blocksImage==null){
-            MapBlock[] blocks = layout.getBlocks();
-            Color[] palette = blocks[0].getTiles()[0].getPalette();
-            IndexColorModel icm = blocks[0].getIcm();            
+            MapBlock[] blocks = layout.getBlocks();          
             blocksImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) blocksImage.getGraphics(); 
             for(int y=0;y<64;y++){

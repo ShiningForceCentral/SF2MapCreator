@@ -10,6 +10,7 @@ import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.layout.MapLayout;
+import com.sfc.sf2.palette.Palette;
 import com.sfc.sf2.palette.graphics.PaletteDecoder;
 import com.sfc.sf2.palette.graphics.PaletteEncoder;
 import java.awt.Color;
@@ -125,13 +126,15 @@ public class RawImageManager {
             if(path.toFile().exists()){
                 BufferedImage img = ImageIO.read(path.toFile());
                 ColorModel cm = img.getColorModel();
-                Color[] palette = null;   
+                Palette palette = null;   
                 Path palettepath = Paths.get(targetPaletteFilepath);
                 if(!(cm instanceof IndexColorModel)){
                     if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
                         System.out.println("Image FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using external palette "+palettepath.toString());
                         byte[] paletteData = Files.readAllBytes(palettepath);
-                        palette = PaletteDecoder.parsePalette(paletteData);
+                        String paletteName = path.getFileName().toString();
+                        paletteName = paletteName.substring(0, paletteName.lastIndexOf("."));
+                        palette = new Palette(paletteName, PaletteDecoder.parsePalette(paletteData));
                     }else{
                     System.out.println("Image FORMAT WARNING : COLORS ARE NOT INDEXED AS EXPECTED. Using original game default map palette 0");
                     try {
@@ -143,7 +146,7 @@ public class RawImageManager {
                           buffer.write(data, 0, nRead);
                         }
                         byte[] paletteData = buffer.toByteArray();
-                        palette = PaletteDecoder.parsePalette(paletteData);
+                        palette = new Palette("basemappalette0", PaletteDecoder.parsePalette(paletteData));
                     } catch (IOException ex) {
                         Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -151,11 +154,15 @@ public class RawImageManager {
                 }else if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
                     System.out.println("Using external palette "+palettepath.toString());
                     byte[] paletteData = Files.readAllBytes(palettepath);
-                    palette = PaletteDecoder.parsePalette(paletteData);
+                    String paletteName = palettepath.getFileName().toString();
+                    paletteName = paletteName.substring(0, paletteName.lastIndexOf("."));
+                    palette = new Palette(paletteName, PaletteDecoder.parsePalette(paletteData));
                 }else{
                     System.out.println("Using image's indexed palette");
-                    IndexColorModel icm = (IndexColorModel) cm;
-                    palette = PaletteDecoder.parsePalette(PaletteEncoder.producePalette(buildColors(icm)));
+                    IndexColorModel icm = (IndexColorModel)cm;
+                    String paletteName = path.getFileName().toString();
+                    paletteName = paletteName.substring(0, paletteName.lastIndexOf("."));
+                    palette = new Palette(filepath, Palette.fromICM(icm));
                 }
 
                 int imageWidth = img.getWidth();
@@ -185,7 +192,7 @@ public class RawImageManager {
                                     Color standardizedColor = new Color(r,g,b);
                                     cFound = false;
                                     for(int c=0;c<16;c++){
-                                        if(standardizedColor.equals(palette[c])){
+                                        if(standardizedColor.equals(palette.getColors()[c])){
                                             tile.setPixel(i, j, c);
                                             cFound = true;
                                             break;
@@ -199,9 +206,9 @@ public class RawImageManager {
                                             index=0;
                                         }else{
                                             for(int c=0;c<16;c++){
-                                                int bDiff = Math.abs(palette[c].getBlue()-color.getBlue())+1;
-                                                int gDiff = Math.abs(palette[c].getGreen()-color.getGreen())+1;
-                                                int rDiff = Math.abs(palette[c].getRed()-color.getRed())+1;
+                                                int bDiff = Math.abs(palette.getColors()[c].getBlue()-color.getBlue())+1;
+                                                int gDiff = Math.abs(palette.getColors()[c].getGreen()-color.getGreen())+1;
+                                                int rDiff = Math.abs(palette.getColors()[c].getRed()-color.getRed())+1;
                                                 int candidateDiff = bDiff * gDiff * rDiff;
                                                 if(candidateDiff<=diff){
                                                     diff = candidateDiff;
@@ -243,53 +250,14 @@ public class RawImageManager {
              System.err.println("com.sfc.sf2.map.io.RawImageManager.importImage() - Error while parsing Image data : "+e);
              e.printStackTrace();
              throw e;
-        }                
-        return tiles;                
+        }
+        return tiles;  
     }
-    
-    private static Color[] buildColors(IndexColorModel icm){
-        Color[] colors = new Color[16];
-        int transparentIndex = icm.getTransparentPixel();
-        if(icm.getMapSize()>16){
-            System.out.println("Image FORMAT HAS MORE THAN 16 INDEXED COLORS : "+icm.getMapSize());
-        }
-        byte[] alphas = new byte[icm.getMapSize()];
-        byte[] reds = new byte[icm.getMapSize()];
-        byte[] greens = new byte[icm.getMapSize()];
-        byte[] blues = new byte[icm.getMapSize()];
-        icm.getAlphas(alphas);
-        icm.getReds(reds);
-        icm.getGreens(greens);
-        icm.getBlues(blues);
-        for(int i=0;i<16;i++){
-            colors[i] = new Color((int)(reds[i]&0xff),(int)(greens[i]&0xff),(int)(blues[i]&0xff));
-        }
-        if(transparentIndex==-1){
-            System.out.println("Image FORMAT HAS NO TRANSPARENT COLOR. THIS WILL RESULT IN UNWANTED TRANSPARENCY WHENEVER USING COLOR INDEX 0.");
-        }
-        if(transparentIndex>0&&transparentIndex<16){
-            System.out.println("Image FORMAT HAS TRANSPARENT COLOR AT INDEX "+transparentIndex+". SWAPPING POSITION WITH COLOR INDEX 0.");
-            Color transparentColor = colors[transparentIndex];
-            Color zero = colors[0];
-            colors[0] = transparentColor;
-            colors[transparentIndex] = zero;
-        }
-        
-        return colors;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
     
     public static void exportRawImage(MapPanel mapPanel, String filepath, int fileFormat){
         try {
             System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Exporting Image files ...");
-            writeImageFile(mapPanel,filepath, fileFormat);    
+            writeImageFile(mapPanel,filepath, fileFormat);
             System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Image files exported.");
         } catch (Exception ex) {
             Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);

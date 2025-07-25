@@ -11,6 +11,7 @@ import com.sfc.sf2.graphics.compressed.StackGraphicsDecoder;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.io.RawImageManager;
+import com.sfc.sf2.palette.Palette;
 import com.sfc.sf2.palette.PaletteManager;
 import com.sfc.sf2.palette.graphics.PaletteDecoder;
 import java.awt.Color;
@@ -50,12 +51,14 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
         Tile[][] tilesets = new Tile[5][];
         map.setTilesets(tilesets);
-        Color[] palette = null;   
+        Palette palette = null;
         Path palettepath = Paths.get(targetPaletteFilepath);
         if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
             try {
                 byte[] paletteData = Files.readAllBytes(palettepath);
-                palette = PaletteDecoder.parsePalette(paletteData);
+                String paletteName = palettepath.getFileName().toString();
+                paletteName = paletteName.substring(0, paletteName.lastIndexOf("."));
+                palette = new Palette(paletteName, PaletteDecoder.parsePalette(paletteData));
             } catch (IOException ex) {
                 Logger.getLogger(MapManager.class.getName()).log(Level.SEVERE, null, ex);
                 palette = map.getTiles()[0].getPalette();
