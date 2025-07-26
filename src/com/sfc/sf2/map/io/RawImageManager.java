@@ -8,7 +8,6 @@ package com.sfc.sf2.map.io;
 import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.map.Map;
 import com.sfc.sf2.map.block.MapBlock;
-import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.palette.Palette;
 import com.sfc.sf2.palette.graphics.PaletteDecoder;
@@ -110,6 +109,7 @@ public class RawImageManager {
                 mbTiles[7] = tiles[(y*3+2)*3*64+(x*3+1)];
                 mbTiles[8] = tiles[(y*3+2)*3*64+(x*3+2)];
                 mb.setTiles(mbTiles);
+                mb.setPalette(tiles[0].getPalette());
                 mb.setIcm(tiles[0].getIcm());
                 blocks[y*64+x] = mb;
             }
@@ -254,27 +254,15 @@ public class RawImageManager {
         return tiles;  
     }
     
-    public static void exportRawImage(MapPanel mapPanel, String filepath, int fileFormat){
+    public static void exportRawImage(Map map, String filepath, int fileFormat){
         try {
             System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Exporting Image files ...");
-            writeImageFile(mapPanel,filepath, fileFormat);
+            com.sfc.sf2.graphics.io.RawImageManager.exportImage(map.getTiles(), filepath, 64, fileFormat);
             System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Image files exported.");
         } catch (Exception ex) {
             Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-    
-    public static void writeImageFile(MapPanel mapPanel, String filepath, int fileFormat){
-        try {
-            BufferedImage image = mapPanel.buildImage();
-            File outputfile = new File(filepath);
-            ImageIO.write(image, com.sfc.sf2.graphics.io.RawImageManager.GetFileExtensionString(fileFormat), outputfile);
-            System.out.println("Image file exported : " + outputfile.getAbsolutePath());
-        } catch (Exception ex) {
-            Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
-        }       
     }
-       
     
     public static void exportHPTiles(Map map, String hpTilesPath){
         try {

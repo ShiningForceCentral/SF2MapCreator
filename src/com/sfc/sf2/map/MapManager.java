@@ -9,12 +9,10 @@ import com.sfc.sf2.graphics.GraphicsManager;
 import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.graphics.compressed.StackGraphicsDecoder;
 import com.sfc.sf2.map.block.MapBlock;
-import com.sfc.sf2.map.gui.MapPanel;
 import com.sfc.sf2.map.io.RawImageManager;
 import com.sfc.sf2.palette.Palette;
 import com.sfc.sf2.palette.PaletteManager;
 import com.sfc.sf2.palette.graphics.PaletteDecoder;
-import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -427,9 +425,9 @@ public class MapManager {
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
     
-    public void exportPng(MapPanel mapPanel, String filepath){
+    public void exportPng(Map map, String filepath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        RawImageManager.exportRawImage(mapPanel, filepath, com.sfc.sf2.graphics.io.RawImageManager.FILE_FORMAT_PNG);
+        RawImageManager.exportRawImage(map, filepath, com.sfc.sf2.graphics.io.RawImageManager.FILE_FORMAT_PNG);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
 
