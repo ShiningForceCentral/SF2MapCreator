@@ -421,13 +421,13 @@ public class MapManager {
 
     public void exportHPTiles(Map map, String hpTilesPath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        RawImageManager.exportHPTiles(map, hpTilesPath);
+        RawImageManager.exportHPTiles(map.getLayout(), hpTilesPath);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
     
     public void exportPng(Map map, String filepath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        RawImageManager.exportRawImage(map, filepath, com.sfc.sf2.graphics.io.RawImageManager.FILE_FORMAT_PNG);
+        RawImageManager.exportRawImage(map.getLayout(), filepath, com.sfc.sf2.graphics.io.RawImageManager.FILE_FORMAT_PNG);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
 
