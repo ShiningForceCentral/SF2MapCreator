@@ -66,7 +66,7 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
     }
     
     public BufferedImage buildImage(){
-        if(redraw){
+        if(redraw && map != null){
             currentImage = buildImage(this.map,this.tilesPerRow);
             setSize(currentImage.getWidth(), currentImage.getHeight());
         }

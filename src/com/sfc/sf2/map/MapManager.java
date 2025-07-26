@@ -9,6 +9,7 @@ import com.sfc.sf2.graphics.GraphicsManager;
 import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.graphics.compressed.StackGraphicsDecoder;
 import com.sfc.sf2.map.block.MapBlock;
+import com.sfc.sf2.map.block.io.MetaManager;
 import com.sfc.sf2.map.io.RawImageManager;
 import com.sfc.sf2.palette.Palette;
 import com.sfc.sf2.palette.PaletteManager;
@@ -30,19 +31,39 @@ import java.util.logging.Logger;
  * @author wiz
  */
 public class MapManager {
-
+    
+    com.sfc.sf2.map.layout.io.DisassemblyManager layoutDisasm = new com.sfc.sf2.map.layout.io.DisassemblyManager();
+    
     private Map map;
     
-    public void importPng(String imagePath, String flagsPath, String hptilesPath, String targetPaletteFilepath){
-        System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
-        map = RawImageManager.importMapFromRawImage(imagePath,flagsPath,hptilesPath, targetPaletteFilepath);
-        System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
+    public void importPng(String imagePath, String flagsPath, String hptilesPath){
+        System.out.println("com.sfc.sf2.map.MapManager.importPng() - Importing Image ...");
+        map = RawImageManager.importMapFromRawImage(imagePath,flagsPath,hptilesPath);
+        System.out.println("com.sfc.sf2.map.MapManager.importPng() - Image imported.");
     }
     
-    public void importGif(String imagePath, String flagsPath, String hptilesPath, String targetPaletteFilepath){
-        System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Importing disassembly ...");
-        map = RawImageManager.importMapFromRawImage(imagePath,flagsPath,hptilesPath,targetPaletteFilepath);
-        System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
+    public void importGif(String imagePath, String flagsPath, String hptilesPath){
+        System.out.println("com.sfc.sf2.map.MapManager.importGif() - Importing Image ...");
+        map = RawImageManager.importMapFromRawImage(imagePath,flagsPath,hptilesPath);
+        System.out.println("com.sfc.sf2.map.MapManager.importGif() - Image imported.");
+    }
+    
+    public void importMapPaletteAndTilesets(String palettesPath, String tilesetsPath, String tilesetsFilePath){
+        System.out.println("com.sfc.sf2.map.MapManager.importMapPaletteAndTilesets() - Importing tilets data ...");
+        try {
+            String[] paths = layoutDisasm.importTilesetsFile(palettesPath, tilesetsPath, tilesetsFilePath);
+            Palette palette = com.sfc.sf2.palette.io.DisassemblyManager.importDisassembly(paths[0]);
+            Tile[][] tilesets = new Tile[paths.length-1][];
+            for (int i = 0; i < tilesets.length; i++) {
+                tilesets[i] = com.sfc.sf2.graphics.io.DisassemblyManager.importDisassembly(paths[i+1], palette, GraphicsManager.COMPRESSION_STACK);
+            }        
+            map.setPalette(palette);
+            map.setTilesets(tilesets);
+        }
+        catch (Exception e) {
+             System.err.println("com.sfc.sf2.map.MapManager.importMapPaletteAndTilesets() - Error while parsing tileset data : "+e);
+        }
+        System.out.println("com.sfc.sf2.map.MapManager.importMapPaletteAndTilesets() - Tilets data imported.");
     }
     
     public void importBaseTilesets(String[] tilesetPaths, boolean chestGraphics, String targetPaletteFilepath){
@@ -419,15 +440,15 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly exported.");        
     }
 
-    public void exportHPTiles(Map map, String hpTilesPath){
+    public void exportHPTiles(String hpTilesPath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        RawImageManager.exportHPTiles(map.getLayout(), hpTilesPath);
+        MetaManager.exportBlockHpTilesFile(map.getLayout().getBlocks(), 64, hpTilesPath);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
     
-    public void exportPng(Map map, String filepath){
+    public void exportPng(String filepath){
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - Exporting PNG ...");
-        RawImageManager.exportRawImage(map.getLayout(), filepath, com.sfc.sf2.graphics.io.RawImageManager.FILE_FORMAT_PNG);
+        com.sfc.sf2.map.block.io.RawImageManager.exportRawImage(map.getLayout().getBlocks(), filepath, 64, com.sfc.sf2.graphics.io.RawImageManager.FILE_FORMAT_PNG);
         System.out.println("com.sfc.sf2.maplayout.MapEditor.exportPng() - PNG exported.");       
     }
 

@@ -6,7 +6,6 @@
 package com.sfc.sf2.map.io;
 
 import com.sfc.sf2.map.Map;
-import com.sfc.sf2.map.block.io.MetaManager;
 import com.sfc.sf2.map.layout.MapLayout;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,7 +23,7 @@ public class RawImageManager {
     public static final int MAP_PIXEL_WIDTH = 64*3*8;
     public static final int MAP_PIXEL_HEIGHT = 64*3*8;
     
-    public static Map importMapFromRawImage(String filepath, String flagsPath, String hptilesPath, String targetPaletteFilepath) {
+    public static Map importMapFromRawImage(String filepath, String flagsPath, String hptilesPath) {
         System.out.println("com.sfc.sf2.map.io.RawImageManager.importImage() - Importing Image files ...");
         Map map = null;
         try {
@@ -64,26 +63,6 @@ public class RawImageManager {
             } catch (IOException ex) {
                 Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-    }
-    
-    public static void exportRawImage(MapLayout mapLayout, String filepath, int fileFormat) {
-        try {
-            System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Exporting Image files ...");
-            com.sfc.sf2.map.block.io.RawImageManager.exportRawImage(mapLayout.getBlocks(), filepath, 64, fileFormat);
-            System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Image files exported.");
-        } catch (Exception ex) {
-            Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public static void exportHPTiles(MapLayout mapLayout, String hpTilesPath) {
-        try {
-            System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - Exporting HP Tiles file ...");
-            MetaManager.exportBlockHpTilesFile(mapLayout.getBlocks(), 64, hpTilesPath);
-            System.out.println("com.sfc.sf2.map.io.RawImageManager.exportImage() - HP Tiles file exported.");
-        } catch (Exception ex) {
-            Logger.getLogger(RawImageManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
