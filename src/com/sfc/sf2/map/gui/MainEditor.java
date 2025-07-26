@@ -264,7 +264,6 @@ public class MainEditor extends javax.swing.JFrame {
         jLabel50 = new javax.swing.JLabel();
         jTextField44 = new javax.swing.JTextField();
         jButton51 = new javax.swing.JButton();
-        jCheckBox6 = new javax.swing.JCheckBox();
         jPanel52 = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
         jLabel42 = new javax.swing.JLabel();
@@ -1239,9 +1238,6 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jCheckBox6.setSelected(true);
-            jCheckBox6.setText("Chest graphics");
-
             javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
             jPanel50.setLayout(jPanel50Layout);
             jPanel50Layout.setHorizontalGroup(
@@ -1250,8 +1246,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addContainerGap()
                     .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel50Layout.createSequentialGroup()
-                            .addComponent(jCheckBox6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(jButton8))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel50Layout.createSequentialGroup()
                             .addComponent(jLabel40)
@@ -1293,9 +1288,7 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton51))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton8)
-                        .addComponent(jCheckBox6))
+                    .addComponent(jButton8)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jLabel41)
                     .addContainerGap())
@@ -2718,7 +2711,7 @@ public class MainEditor extends javax.swing.JFrame {
         System.out.println(toolPath.toString());
         Path basePath = toolPath.resolve(Paths.get(mapPath)).normalize();
         
-        Path pPath = Paths.get(jTextField35.getText());
+        Path pPath = Paths.get(jTextField42.getText());
         Path palettePath;
         if(!pPath.isAbsolute()){
            palettePath = basePath.resolve(pPath).normalize();
@@ -3049,7 +3042,6 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;

@@ -13,11 +13,9 @@ import com.sfc.sf2.map.block.io.MetaManager;
 import com.sfc.sf2.map.io.RawImageManager;
 import com.sfc.sf2.palette.Palette;
 import com.sfc.sf2.palette.PaletteManager;
-import com.sfc.sf2.palette.graphics.PaletteDecoder;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -56,7 +54,7 @@ public class MapManager {
             Tile[][] tilesets = new Tile[paths.length-1][];
             for (int i = 0; i < tilesets.length; i++) {
                 tilesets[i] = com.sfc.sf2.graphics.io.DisassemblyManager.importDisassembly(paths[i+1], palette, GraphicsManager.COMPRESSION_STACK);
-            }        
+            }
             map.setPalette(palette);
             map.setTilesets(tilesets);
         }
@@ -73,18 +71,12 @@ public class MapManager {
         Palette palette = null;
         Path palettepath = Paths.get(targetPaletteFilepath);
         if(palettepath.toFile().exists() && palettepath.toFile().isFile()){
-            try {
-                byte[] paletteData = Files.readAllBytes(palettepath);
-                String paletteName = palettepath.getFileName().toString();
-                paletteName = paletteName.substring(0, paletteName.lastIndexOf("."));
-                palette = new Palette(paletteName, PaletteDecoder.parsePalette(paletteData));
-            } catch (IOException ex) {
-                Logger.getLogger(MapManager.class.getName()).log(Level.SEVERE, null, ex);
-                palette = map.getTiles()[0].getPalette();
-            }
+            palette = com.sfc.sf2.palette.io.DisassemblyManager.importDisassembly(targetPaletteFilepath);
         }else{
             palette = map.getTiles()[0].getPalette();
-        }        
+        }
+        map.setPalette(palette);
+        
         Tile emptyTile = createEmptyTile();
         emptyTile.setPalette(palette);
         for(int i=0;i<tilesets.length;i++){
