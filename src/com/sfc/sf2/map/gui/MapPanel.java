@@ -66,9 +66,14 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
     }
     
     public BufferedImage buildImage(){
-        if(redraw && map != null){
-            currentImage = buildImage(this.map,this.tilesPerRow);
-            setSize(currentImage.getWidth(), currentImage.getHeight());
+        if (redraw) {
+            if (map == null) {
+                currentImage = null;
+            } else {
+                currentImage = buildImage(this.map,this.tilesPerRow);
+                setSize(currentImage.getWidth(), currentImage.getHeight());
+            }
+            redraw = false;
         }
         return currentImage;
     }
@@ -92,7 +97,6 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
             if(drawGrid){
                 graphics.drawImage(getGridImage(), 0, 0, null);
             }
-            redraw = false;
             currentImage = resize(currentImage);
         }
                   
@@ -186,7 +190,15 @@ public class MapPanel extends JPanel  implements MouseListener, MouseMotionListe
         g.drawImage(image, 0, 0, image.getWidth()*currentDisplaySize, image.getHeight()*currentDisplaySize, null);
         g.dispose();
         return newImage;
-    }    
+    }
+    
+    public void clearAllCachedImages() {
+        redraw = true;
+        blocksImage = null;
+        gridImage = null;
+        lpTilesImage = null;
+        orphanedTilesImage = null;
+    }
     
     @Override
     public Dimension getPreferredSize() {

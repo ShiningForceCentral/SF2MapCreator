@@ -54,6 +54,9 @@ public class MapManager {
             Tile[][] tilesets = new Tile[paths.length-1][];
             for (int i = 0; i < tilesets.length; i++) {
                 tilesets[i] = com.sfc.sf2.graphics.io.DisassemblyManager.importDisassembly(paths[i+1], palette, GraphicsManager.COMPRESSION_STACK);
+                if (tilesets[i] == null) {
+                    tilesets[i] = createEmptyTileset();
+                }
             }
             map.setPalette(palette);
             map.setTilesets(tilesets);
@@ -86,11 +89,7 @@ public class MapManager {
                 tilesets[i] = com.sfc.sf2.graphics.io.DisassemblyManager.importDisassembly(tpath, palette, GraphicsManager.COMPRESSION_STACK);
             }else{
                 if(i!=4||!chestGraphics){
-                    Tile[] emptyTileset = new Tile[128];
-                    tilesets[i] = emptyTileset;
-                    for(int j=0;j<emptyTileset.length;j++){
-                        emptyTileset[j] = createEmptyTile();
-                    }
+                    tilesets[i] = createEmptyTileset();
                 }else{
                     try {
                         InputStream is = ClassLoader.class.getResourceAsStream("basemaptileset5.bin");
@@ -109,6 +108,14 @@ public class MapManager {
             }
         }
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
+    }
+    
+    private Tile[] createEmptyTileset(){
+        Tile[] emptyTileset = new Tile[128];
+        for(int j=0;j<emptyTileset.length;j++){
+            emptyTileset[j] = createEmptyTile();
+        }
+        return emptyTileset;
     }
     
     private Tile createEmptyTile(){

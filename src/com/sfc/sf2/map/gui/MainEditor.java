@@ -2628,8 +2628,7 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton41ActionPerformed
 
     private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
-        boolean checked = jCheckBox5.isSelected();
-        mapPanel.setDrawOrphanedTiles(checked);
+        mapPanel.setDrawOrphanedTiles(jCheckBox5.isSelected());
         RepaintMiscPanels();
     }//GEN-LAST:event_jCheckBox5ActionPerformed
 
@@ -2905,6 +2904,8 @@ public class MainEditor extends javax.swing.JFrame {
             mapPanel.setMap(map);
             mapPanel.setMapLayout(map.getLayout());
             mapPanel.setBlockset(map.getBlocks());
+            mapPanel.clearAllCachedImages();
+            mapPanel.setDrawOrphanedTiles(jCheckBox5.isSelected());
             mapPanel.setCurrentDisplaySize(jComboBox1.getSelectedIndex()+1);
             
             RepaintMiscPanels();
