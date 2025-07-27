@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -121,7 +120,7 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     
-    public void generateBlockset(){
+    public void generateOptimisedBlockset(){
         MapBlock[] blocks = map.getBlocks();
         MapBlock[] optimizedBlockset = null;
         List<MapBlock> blockList = new ArrayList();
@@ -204,11 +203,8 @@ public class MapManager {
         return block;
     }
     
-    public void generateTilesets() {
-        Palette palette = map.getLayout().getPalette();
+    public void generateOrphanedTiles() {
         Tileset[] tilesets = map.getTilesets();
-        Date d = new Date();
-        System.out.println(d);
         Tile[] orphanTiles = null;
         List<Tile> orphanTileList = new ArrayList();
         MapBlock[] blockset = map.getOptimizedBlockset();
@@ -256,7 +252,7 @@ public class MapManager {
                 }
             }
         }
-        Date d2 = new Date();
+        
         List<Tile> optimTileList = new ArrayList();
         for(int i=0;i<orphanTileList.size();i++){
             boolean found = false;
@@ -275,15 +271,14 @@ public class MapManager {
                 optimTileList.add(orphanTileList.get(i));
             }
         }
-        /*Collections.sort(optimTileList, new Comparator<Tile>() {
-            @Override
-            public int compare(Tile o1, Tile o2) {
-                return o1.getOccurrences()-o2.getOccurrences();
-            }
-        });*/
         orphanTiles = new Tile[optimTileList.size()];
         optimTileList.toArray(orphanTiles);
         map.setOrphanTiles(orphanTiles);
+    }
+    
+    public void generateTilesets() {
+        Palette palette = map.getLayout().getPalette();
+        
         Tile emptyTile = Tile.EmptyTile(palette);
         Tileset[] newTilesets = new Tileset[5];
         Tileset[] emptyTilesets = new Tileset[5];
@@ -347,6 +342,9 @@ public class MapManager {
                 }
             }
         }
+        
+        MapBlock[] blockset = map.getOptimizedBlockset();
+        Tileset[] tilesets = map.getNewTilesets();
         /* Re-assign tilesets tile indexes */
         tilesets = map.getNewTilesets();
         for(int i=0;i<tilesets.length;i++){
@@ -402,9 +400,6 @@ public class MapManager {
                 }
             }
         }
-        System.out.println(blockset[3].getTiles()[0].getId());
-        System.out.println(d+" -> "+d2+" -> "+new Date());
-        
     }
     
     public void exportPalette(String filepath) {
