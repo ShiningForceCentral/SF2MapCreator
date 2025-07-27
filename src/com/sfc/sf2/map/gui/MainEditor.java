@@ -1872,7 +1872,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addContainerGap())
             );
 
-            jPanel49.setBorder(javax.swing.BorderFactory.createTitledBorder("Mpa data :"));
+            jPanel49.setBorder(javax.swing.BorderFactory.createTitledBorder("Map data :"));
 
             jTextField14.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
             jTextField14.setText("0-blocks.bin");
