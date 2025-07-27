@@ -7,6 +7,7 @@ package com.sfc.sf2.map;
 
 import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.map.block.MapBlock;
+import com.sfc.sf2.map.block.Tileset;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.palette.Palette;
 
@@ -20,8 +21,8 @@ public class Map {
     private MapLayout layout;
     private Palette palette;
     private Tile[] tiles;
-    private Tile[][] tilesets;
-    private Tile[][] newTilesets;
+    private Tileset[] tilesets;
+    private Tileset[] newTilesets;
     private Tile[] orphanTiles;
     
     public MapBlock[] getBlocks() {
@@ -56,12 +57,20 @@ public class Map {
         this.tiles = tiles;
     }
 
-    public Tile[][] getTilesets() {
+    public Tileset[] getTilesets() {
         return tilesets;
     }
 
-    public void setTilesets(Tile[][] tilesets) {
+    public void setTilesets(Tileset[] tilesets) {
         this.tilesets = tilesets;
+    }
+
+    public Tileset[] getNewTilesets() {
+        return newTilesets;
+    }
+
+    public void setNewTilesets(Tileset[] newTilesets) {
+        this.newTilesets = newTilesets;
     }
 
     public Tile[] getOrphanTiles() {
@@ -79,15 +88,4 @@ public class Map {
     public void setOptimizedBlockset(MapBlock[] optimizedBlockset) {
         this.optimizedBlockset = optimizedBlockset;
     }
-
-    public Tile[][] getNewTilesets() {
-        return newTilesets;
-    }
-
-    public void setNewTilesets(Tile[][] newTilesets) {
-        this.newTilesets = newTilesets;
-    }
-    
-    
-    
 }

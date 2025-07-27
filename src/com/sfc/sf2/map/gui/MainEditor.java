@@ -1761,6 +1761,7 @@ public class MainEditor extends javax.swing.JFrame {
             });
 
             jLabel8.setText("<html>Select new target files to export as new tilesets.</html>");
+            jLabel8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
             javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
             jPanel48.setLayout(jPanel48Layout);
@@ -1833,9 +1834,11 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jButton33))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton7)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel48Layout.createSequentialGroup()
+                            .addComponent(jButton7)
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                    .addContainerGap())
             );
 
             jPanel49.setBorder(javax.swing.BorderFactory.createTitledBorder("Mpa data :"));
@@ -1851,7 +1854,8 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jLabel1.setText("<html>Select new target files.</html>");
+            jLabel1.setText("<html>Select new target files.<br>\nUses the filenames above.</html>");
+            jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
             jButton2.setText("Export");
             jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -1916,7 +1920,7 @@ public class MainEditor extends javax.swing.JFrame {
                         .addGroup(jPanel49Layout.createSequentialGroup()
                             .addComponent(jLabel39)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jTextField36, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                             .addGap(6, 6, 6)
                             .addComponent(jButton43)))
                     .addContainerGap())
@@ -1941,9 +1945,9 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jButton27))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2))
-                    .addContainerGap())
+                        .addComponent(jButton2)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(15, 15, 15))
             );
 
             javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -1962,7 +1966,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(83, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Export", jPanel5);
@@ -2212,47 +2216,12 @@ public class MainEditor extends javax.swing.JFrame {
         Path basePath = toolPath.resolve(Paths.get(mapPath)).normalize();
         System.out.println(basePath.toString());
         
-        Path pPath = Paths.get(jTextField32.getText());
-        Path palettePath;
-        if(!pPath.isAbsolute()){
-           palettePath = basePath.resolve(pPath).normalize();
+        Path tPath = Paths.get(jTextField36.getText());
+        Path tilesetsPath;
+        if(!tPath.isAbsolute()){
+           tilesetsPath = basePath.resolve(tPath).normalize();
         }else{
-            palettePath = pPath;
-        }
-        Path t1Path = Paths.get(jTextField16.getText());
-        Path tileset1Path;
-        if(!t1Path.isAbsolute()){
-           tileset1Path = basePath.resolve(t1Path).normalize();
-        }else{
-            tileset1Path = t1Path;
-        }
-        Path t2Path = Paths.get(jTextField17.getText());
-        Path tileset2Path;
-        if(!t2Path.isAbsolute()){
-           tileset2Path = basePath.resolve(t2Path).normalize();
-        }else{
-            tileset2Path = t2Path;
-        }
-        Path t3Path = Paths.get(jTextField18.getText());
-        Path tileset3Path;
-        if(!t3Path.isAbsolute()){
-           tileset3Path = basePath.resolve(t3Path).normalize();
-        }else{
-            tileset3Path = t3Path;
-        }
-        Path t4Path = Paths.get(jTextField25.getText());
-        Path tileset4Path;
-        if(!t4Path.isAbsolute()){
-           tileset4Path = basePath.resolve(t4Path).normalize();
-        }else{
-            tileset4Path = t4Path;
-        }
-        Path t5Path = Paths.get(jTextField26.getText());
-        Path tileset5Path;
-        if(!t5Path.isAbsolute()){
-           tileset5Path = basePath.resolve(t5Path).normalize();
-        }else{
-            tileset5Path = t5Path;
+            tilesetsPath = tPath;
         }
         Path bPath = Paths.get(jTextField14.getText());
         Path blocksetPath;
@@ -2270,7 +2239,7 @@ public class MainEditor extends javax.swing.JFrame {
             layoutPath = lPath;
         }        
         System.out.println(layoutPath.toString());
-        mapManager.exportDisassembly(palettePath.toString(), tileset1Path.toString(), tileset2Path.toString(), tileset3Path.toString(), tileset4Path.toString(), tileset5Path.toString(), blocksetPath.toString(),layoutPath.toString());
+        mapManager.exportDisassembly(tilesetsPath.toString(), blocksetPath.toString(), layoutPath.toString());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
@@ -2510,9 +2479,10 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel45.add(optimizedBlocksLayout);
         jPanel45.setSize(optimizedBlocksLayout.getWidth(), optimizedBlocksLayout.getHeight());
         jPanel45.revalidate();
-        jPanel45.repaint();  
-
+        jPanel45.repaint();
+        
         mapManager.generateTilesets();
+
         if(map.getOrphanTiles() != null && map.getOrphanTiles().length>0){
             jPanel27.removeAll();       
             jPanel27.setLayout(new GridLayout(1,1));
@@ -2633,11 +2603,79 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        String toolDir = System.getProperty("user.dir");
+        Path toolPath = Paths.get(toolDir);
+        
+        String mapPath = jTextField24.getText();
+        if(!mapPath.endsWith("\\")){
+            mapPath = mapPath+"\\";
+        }
+        //Path basePath = Paths.get(mapPath).toAbsolutePath();
+        System.out.println(toolPath.toString());
+        Path basePath = toolPath.resolve(Paths.get(mapPath)).normalize();
+        System.out.println(basePath.toString());
+        
+        Path pPath = Paths.get(jTextField32.getText());
+        Path palettePath;
+        if(!pPath.isAbsolute()){
+           palettePath = basePath.resolve(pPath).normalize();
+        }else{
+            palettePath = pPath;
+        }
+        
+        mapManager.exportPalette(palettePath.toString());
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        String toolDir = System.getProperty("user.dir");
+        Path toolPath = Paths.get(toolDir);
+        
+        String mapPath = jTextField24.getText();
+        if(!mapPath.endsWith("\\")){
+            mapPath = mapPath+"\\";
+        }
+        //Path basePath = Paths.get(mapPath).toAbsolutePath();
+        System.out.println(toolPath.toString());
+        Path basePath = toolPath.resolve(Paths.get(mapPath)).normalize();
+        System.out.println(basePath.toString());
+        
+        Path t1Path = Paths.get(jTextField16.getText());
+        Path tileset1Path;
+        if(!t1Path.isAbsolute()){
+           tileset1Path = basePath.resolve(t1Path).normalize();
+        }else{
+            tileset1Path = t1Path;
+        }
+        Path t2Path = Paths.get(jTextField17.getText());
+        Path tileset2Path;
+        if(!t2Path.isAbsolute()){
+           tileset2Path = basePath.resolve(t2Path).normalize();
+        }else{
+            tileset2Path = t2Path;
+        }
+        Path t3Path = Paths.get(jTextField18.getText());
+        Path tileset3Path;
+        if(!t3Path.isAbsolute()){
+           tileset3Path = basePath.resolve(t3Path).normalize();
+        }else{
+            tileset3Path = t3Path;
+        }
+        Path t4Path = Paths.get(jTextField25.getText());
+        Path tileset4Path;
+        if(!t4Path.isAbsolute()){
+           tileset4Path = basePath.resolve(t4Path).normalize();
+        }else{
+            tileset4Path = t4Path;
+        }
+        Path t5Path = Paths.get(jTextField26.getText());
+        Path tileset5Path;
+        if(!t5Path.isAbsolute()){
+           tileset5Path = basePath.resolve(t5Path).normalize();
+        }else{
+            tileset5Path = t5Path;
+        }
+        
+        mapManager.exportTilesets(new String[] {tileset1Path.toString(), tileset2Path.toString(), tileset3Path.toString(), tileset4Path.toString(), tileset5Path.toString()});
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
@@ -2846,22 +2884,22 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void UpdateBaseTilesetsInterface() {
         Map map = mapManager.getMap();
-        if (map != null) {
+        if (map != null && map.getTilesets()!= null) {
             tileset1Layout.setTilesPerRow(16);
             tileset1Layout.setDisplaySize(2);
-            tileset1Layout.setTiles(map.getTilesets()[0]);
+            tileset1Layout.setTiles(map.getTilesets()[0].getTiles());
             tileset2Layout.setTilesPerRow(16);
             tileset2Layout.setDisplaySize(2);
-            tileset2Layout.setTiles(map.getTilesets()[1]);
+            tileset2Layout.setTiles(map.getTilesets()[1].getTiles());
             tileset3Layout.setTilesPerRow(16);
             tileset3Layout.setDisplaySize(2);
-            tileset3Layout.setTiles(map.getTilesets()[2]);
+            tileset3Layout.setTiles(map.getTilesets()[2].getTiles());
             tileset4Layout.setTilesPerRow(16);
             tileset4Layout.setDisplaySize(2);
-            tileset4Layout.setTiles(map.getTilesets()[3]);
+            tileset4Layout.setTiles(map.getTilesets()[3].getTiles());
             tileset5Layout.setTilesPerRow(16);
             tileset5Layout.setDisplaySize(2);
-            tileset5Layout.setTiles(map.getTilesets()[4]);
+            tileset5Layout.setTiles(map.getTilesets()[4].getTiles());
         
             RepaintBaseTilesetsPanels();
         }
@@ -2869,22 +2907,22 @@ public class MainEditor extends javax.swing.JFrame {
     
     private void UpdateNewTilesetsInterface() {
         Map map = mapManager.getMap();
-        if (map != null) {
+        if (map != null && map.getNewTilesets() != null) {
             newtileset1Layout.setTilesPerRow(16);
             newtileset1Layout.setDisplaySize(2);
-            newtileset1Layout.setTiles(map.getNewTilesets()[0]);
+            newtileset1Layout.setTiles(map.getNewTilesets()[0].getTiles());
             newtileset2Layout.setTilesPerRow(16);
             newtileset2Layout.setDisplaySize(2);
-            newtileset2Layout.setTiles(map.getNewTilesets()[1]);
+            newtileset2Layout.setTiles(map.getNewTilesets()[1].getTiles());
             newtileset3Layout.setTilesPerRow(16);
             newtileset3Layout.setDisplaySize(2);
-            newtileset3Layout.setTiles(map.getNewTilesets()[2]);
+            newtileset3Layout.setTiles(map.getNewTilesets()[2].getTiles());
             newtileset4Layout.setTilesPerRow(16);
             newtileset4Layout.setDisplaySize(2);
-            newtileset4Layout.setTiles(map.getNewTilesets()[3]);
+            newtileset4Layout.setTiles(map.getNewTilesets()[3].getTiles());
             newtileset5Layout.setTilesPerRow(16);
             newtileset5Layout.setDisplaySize(2);
-            newtileset5Layout.setTiles(map.getNewTilesets()[4]);
+            newtileset5Layout.setTiles(map.getNewTilesets()[4].getTiles());
         
             RepaintNewTilesetsPanels();
         }
