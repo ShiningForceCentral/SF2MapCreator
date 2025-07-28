@@ -32,6 +32,8 @@ public class MapManager {
     com.sfc.sf2.map.layout.io.DisassemblyManager layoutDisasm = new com.sfc.sf2.map.layout.io.DisassemblyManager();
     
     private Map map;
+    String lastImportedPalettePath;
+    String[] lastImportedTilesetsPaths;
     
     public void importPng(String imagePath, String flagsPath, String hptilesPath){
         System.out.println("com.sfc.sf2.map.MapManager.importPng() - Importing Image ...");
@@ -52,19 +54,25 @@ public class MapManager {
         try {
             String[] paths = layoutDisasm.importTilesetsFile(palettesPath, tilesetsPath, tilesetsFilePath);
             Palette palette = com.sfc.sf2.palette.io.DisassemblyManager.importDisassembly(paths[0]);
-            Tileset[] tilesets = new Tileset[paths.length-1];
+            
+            String[] tilesetPaths = new String[paths.length-1];
+            System.arraycopy(paths, 1, tilesetPaths, 0, tilesetPaths.length);
+            Tileset[] tilesets = new Tileset[tilesetPaths.length];
             for (int i = 0; i < tilesets.length; i++) {
-                Tile[] tiles = com.sfc.sf2.graphics.io.DisassemblyManager.importDisassembly(paths[i+1], palette, GraphicsManager.COMPRESSION_STACK);
+                Tile[] tiles = com.sfc.sf2.graphics.io.DisassemblyManager.importDisassembly(tilesetPaths[i], palette, GraphicsManager.COMPRESSION_STACK);
                 if (tiles == null) {
                     tilesets[i] = Tileset.EmptyTilset(palette);
                 } else {
-                tilesets[i] = new Tileset();
-                tilesets[i].setName(paths[i+1].substring(paths[i+1].lastIndexOf("\\"), paths[i+1].lastIndexOf(".")));
-                tilesets[i].setTiles(tiles);
+                    tilesets[i] = new Tileset();
+                    tilesets[i].setName(tilesetPaths[i].substring(tilesetPaths[i].lastIndexOf("\\"), tilesetPaths[i].lastIndexOf(".")));
+                    tilesets[i].setTiles(tiles);
                 }
             }
             map.setPalette(palette);
             map.setTilesets(tilesets);
+            
+            lastImportedPalettePath = paths[0];
+            lastImportedTilesetsPaths = tilesetPaths;
         }
         catch (Exception e) {
              System.err.println("com.sfc.sf2.map.MapManager.importMapPaletteAndTilesets() - Error while parsing tileset data : "+e);
@@ -117,6 +125,8 @@ public class MapManager {
         }
         map.setPalette(palette);
         map.setTilesets(tilesets);
+        lastImportedPalettePath = targetPaletteFilepath;
+        lastImportedTilesetsPaths = tilesetPaths;
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly imported.");
     }
     
@@ -412,7 +422,11 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Exporting disassembly ...");
         Tileset[] tilesets = map.getNewTilesets();
         for (int i = 0; i < tilesets.length; i++) {
-            com.sfc.sf2.graphics.io.DisassemblyManager.exportDisassembly(tilesets[i].getTiles(), tilesetPaths[i], GraphicsManager.COMPRESSION_STACK);
+            if (tilesets[i] == null || tilesets[i].getTiles() == null || tilesets[i].getTiles().length == 0) {
+                System.out.println("Tilsets " + (i+1) + " is blank so will not be exported.");
+            } else {
+                com.sfc.sf2.graphics.io.DisassemblyManager.exportDisassembly(tilesets[i].getTiles(), tilesetPaths[i], GraphicsManager.COMPRESSION_STACK);
+            }
         }
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly exported.");        
     }
@@ -439,5 +453,13 @@ public class MapManager {
 
     public Map getMap() {
         return map;
+    }
+    
+    public String getLastImportedPalettePath() {
+        return lastImportedPalettePath;
+    }
+    
+    public String[] getLastImportedTilesetsPaths() {
+        return lastImportedTilesetsPaths;
     }
 }

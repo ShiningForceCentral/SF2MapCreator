@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -2756,6 +2757,7 @@ public class MainEditor extends javax.swing.JFrame {
         mapManager.importMapPaletteAndTilesets(palettesPath.toString(), tilesetsPath.toString(), mapDataPath.toString());
         UpdateBaseTilesetsInterface();
         UpdateMiscInterfaces();
+        updateExportPaths();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -2835,8 +2837,41 @@ public class MainEditor extends javax.swing.JFrame {
         mapManager.importBaseTilesets(tilesetPaths, jCheckBox3.isSelected(), palettePath.toString());
         UpdateBaseTilesetsInterface();
         UpdateMiscInterfaces();
+        updateExportPaths();
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    void updateExportPaths() {
+        jTextField32.setText(mapManager.getLastImportedPalettePath());
+        String[] lastTilesetPaths = mapManager.getLastImportedTilesetsPaths();
+        JTextField text = null;
+        if (lastTilesetPaths != null) {
+            for (int i = 0; i < lastTilesetPaths.length; i++) {
+                switch (i) {
+                    case 0:
+                        text = jTextField16;
+                        break;
+                    case 1:
+                        text = jTextField17;
+                        break;
+                    case 2:
+                        text = jTextField18;
+                        break;
+                    case 3:
+                        text = jTextField25;
+                        break;
+                    case 4:
+                        text = jTextField26;
+                        break;
+                }
+                if (lastTilesetPaths[i] != null && lastTilesetPaths[i].length() > 0) {
+                    text.setText(lastTilesetPaths[i]);
+                } else {
+                    text.setText(String.format("../../../graphics/maps/maptilesets/newmaptileset%03d.bin", i));
+                }
+            }
+        }
+    }
+    
     private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
         int returnVal = jFileChooser1.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
