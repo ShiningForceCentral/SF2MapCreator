@@ -422,7 +422,7 @@ public class MapManager {
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Exporting disassembly ...");
         Tileset[] tilesets = map.getNewTilesets();
         for (int i = 0; i < tilesets.length; i++) {
-            if (tilesets[i] == null || tilesets[i].getTiles() == null || tilesets[i].getTiles().length == 0) {
+            if (tilesets[i] == null || tilesets[i].isTilesetEmpty()) {
                 System.out.println("Tilsets " + (i+1) + " is blank so will not be exported.");
             } else {
                 com.sfc.sf2.graphics.io.DisassemblyManager.exportDisassembly(tilesets[i].getTiles(), tilesetPaths[i], GraphicsManager.COMPRESSION_STACK);
