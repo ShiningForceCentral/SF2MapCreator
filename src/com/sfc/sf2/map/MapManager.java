@@ -433,9 +433,9 @@ public class MapManager {
     
     public void exportDisassembly(String tilesetsPath, String blocksPath, String layoutPath){
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Exporting disassembly ...");
-        com.sfc.sf2.map.layout.io.DisassemblyManager mldm = new com.sfc.sf2.map.layout.io.DisassemblyManager();
-        mldm.setBlockset(map.getOptimizedBlockset());
-        mldm.exportDisassembly(map.getOptimizedBlockset(), map.getNewTilesets(), blocksPath, map.getLayout(), layoutPath);
+        layoutDisasm.setBlockset(map.getOptimizedBlockset());
+        layoutDisasm.exportDisassembly(map.getOptimizedBlockset(), map.getNewTilesets(), blocksPath, map.getLayout(), layoutPath);
+        layoutDisasm.exportTilesetsFile(tilesetsPath, map.getPalette(), map.getNewTilesets());
         System.out.println("com.sfc.sf2.map.MapManager.importDisassembly() - Disassembly exported.");        
     }
 
